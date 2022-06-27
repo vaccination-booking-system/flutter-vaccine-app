@@ -1,3 +1,5 @@
+import 'package:evizy/screen/profile/edit_profile_screen.dart';
+import 'package:evizy/screen/profile/riwayat_test_covid_screen.dart';
 import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -22,7 +24,12 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen()));
+              },
               icon: Icon(
                 Icons.mode_edit_rounded,
                 color: Colors.black,
@@ -73,7 +80,13 @@ class ProfileScreen extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const RiwayatTestCovidScreen()));
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Row(

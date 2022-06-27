@@ -39,8 +39,12 @@ class ServiceApi {
       });
       final data = response.data;
       return LoginModel.fromJson(data);
-    } catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
+        return LoginModel.fromJson(e.response!.data);
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -56,8 +60,12 @@ class ServiceApi {
       });
       final data = response.data;
       return RegisterModel.fromJson(data);
-    } catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
+        return RegisterModel.fromJson(e.response!.data);
+      } else {
+        throw e;
+      }
     }
   }
 }

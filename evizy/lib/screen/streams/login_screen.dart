@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:evizy/screen/home/home_screen.dart';
-import 'package:evizy/screen/streams/register_view_model.dart';
+import 'package:evizy/screen/streams/register_screen.dart';
+import 'package:evizy/view_model/auth_view_model.dart';
 import 'package:evizy/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginViewModel>(context);
-    // final authProvider = Provider.of<AuthViewModel>(context);
+    final authProvider = Provider.of<AuthViewModel>(context);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 10, 108, 157),
       body: Form(
@@ -169,50 +170,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  //Bagian checkbox dan lupa kata sandi
+                  //Bagian lupa kata sandi
                   Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 120,
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                checkColor: Colors.white,
-                                fillColor:
-                                    MaterialStateProperty.resolveWith(getColor),
-                                value: isChecked,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                  });
-                                },
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isChecked = !isChecked;
-                                    });
-                                  },
-                                  child: const Text(
-                                    'Ingat Saya?',
-                                    style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 190, 190, 190)),
-                                  )),
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text('Lupa Kata Sandi?',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 190, 190, 190),
-                              )),
-                        ),
-                      ],
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 1.8),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Text('Lupa Kata Sandi?',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 190, 190, 190),
+                          )),
                     ),
                   ),
                   const SizedBox(
@@ -227,8 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               _nikController.text, _passwordController.text);
                           if (isAvailable) {
                             if (mounted && isChecked == true) {
-                              // authProvider.setToken(
-                              //     loginProvider.login.data!.accessToken!);
+                              authProvider.setToken(
+                                  loginProvider.login.data!.accessToken!);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
