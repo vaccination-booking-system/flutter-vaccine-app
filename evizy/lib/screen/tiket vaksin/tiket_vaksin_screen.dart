@@ -1,8 +1,5 @@
 import 'package:evizy/screen/tiket%20vaksin/data_tiket_vaksin_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class TiketVaksinScreen extends StatefulWidget {
   const TiketVaksinScreen({Key? key}) : super(key: key);
@@ -16,9 +13,9 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: const Text(
@@ -38,16 +35,16 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
             Container(
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 10, 108, 157),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 53,
             ),
             Container(
               width: 202,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Lihat Tiket Vaksin Anda',
                   style: TextStyle(
@@ -58,12 +55,12 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 19,
             ),
             Container(
               width: 331,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Lihat Tiket Vaksin Anda DImapun Dan Kapanpun.',
                   style: TextStyle(
@@ -74,7 +71,7 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 86,
             ),
             ElevatedButton(
@@ -83,7 +80,6 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DataTiketVaksin()));
-                  Fluttertoast.showToast(msg: 'Under Development');
                 },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -92,8 +88,8 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
                     )),
                     minimumSize: MaterialStateProperty.all(const Size(172, 54)),
                     backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 10, 108, 157))),
-                child: Text(
+                        const Color.fromARGB(255, 10, 108, 157))),
+                child: const Text(
                   'Dapatkan',
                   style: TextStyle(
                     fontSize: 16,

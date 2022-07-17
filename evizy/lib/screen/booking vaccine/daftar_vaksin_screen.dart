@@ -1,8 +1,6 @@
 import 'package:evizy/screen/booking%20vaccine/syarat_ketentuan_vaksin_screen.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class DaftarVaksinScreen extends StatefulWidget {
@@ -17,9 +15,9 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -36,7 +34,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 260,
             ),
             Container(
@@ -51,7 +49,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Center(
@@ -67,7 +65,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Status Vaksin',
                               style: TextStyle(
                                 color: Colors.white,
@@ -77,7 +75,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                             ),
                             Text(
                               userProvider.user.data!.name!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
@@ -85,17 +83,17 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                             ),
                             Text(
                               'NIK ${userProvider.user.data!.nik}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 44,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 24),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
                               child: Text(
                                 'BELUM DIVAKSIN',
                                 style: TextStyle(
@@ -110,14 +108,14 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
                           'Jadwal Vaksinasi',
                           style: TextStyle(
@@ -137,7 +135,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
                   Padding(
@@ -145,7 +143,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                     child: Container(
                       width: 313,
                       height: 34,
-                      child: Text(
+                      child: const Text(
                         'Segera daftarkan diri Anda dengan mengklik tombol berikut :',
                         style: TextStyle(
                           color: Colors.black,
@@ -155,7 +153,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Center(
@@ -176,7 +174,7 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(345, 40)),
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 10, 108, 157))),
+                              const Color.fromARGB(255, 10, 108, 157))),
                       child: const Text('Daftar Vaksinasi'),
                     ),
                   ),

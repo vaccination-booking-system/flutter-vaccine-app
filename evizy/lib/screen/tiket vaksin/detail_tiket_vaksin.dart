@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class DetailTiketVaksin extends StatelessWidget {
-  const DetailTiketVaksin({Key? key}) : super(key: key);
+  final int nomorTiket;
+  final String lokasi;
+  final String tanggalTest;
+  final String jamTest;
+  final String nik;
+  final String nama;
+  final String tanggalLahir;
+  final String jenisKelamin;
+  final String alamat;
+  const DetailTiketVaksin(
+      {Key? key,
+      required this.nomorTiket,
+      required this.lokasi,
+      required this.tanggalTest,
+      required this.jamTest,
+      required this.nik,
+      required this.nama,
+      required this.tanggalLahir,
+      required this.jenisKelamin,
+      required this.alamat})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -36,7 +54,7 @@ class DetailTiketVaksin extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               const Center(
@@ -49,23 +67,23 @@ class DetailTiketVaksin extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
-              _rowMaker('Nomor Tiket :', 'LPA-2156995'),
-              SizedBox(
+              _rowMaker('Id Tiket Vaksin :', nomorTiket.toString()),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Lokasi :', 'RPTRA TANAH ABANG III-SINOVAC'),
-              SizedBox(
+              _rowMaker('Lokasi :', lokasi),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Tanggal Tes :', '27 MEI 2022'),
-              SizedBox(
+              _rowMaker('Tanggal Tes :', tanggalTest),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Jam Tes :', '08:00 - 10.30'),
-              SizedBox(
+              _rowMaker('Jam Tes :', jamTest),
+              const SizedBox(
                 height: 32,
               ),
               const Padding(
@@ -75,42 +93,42 @@ class DetailTiketVaksin extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('NIK :', '2234567890123456'),
-              SizedBox(
+              _rowMaker('NIK :', nik),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Nama Pasien :', 'Nathan'),
-              SizedBox(
+              _rowMaker('Nama Pasien :', nama),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Tangga Lahir :', '14 April 1996'),
-              SizedBox(
+              _rowMaker('Tangga Lahir :', tanggalLahir),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Jenis Kelamin :', 'Laki-laki'),
-              SizedBox(
+              _rowMaker('Jenis Kelamin :', jenisKelamin),
+              const SizedBox(
                 height: 16,
               ),
-              _rowMaker('Alamat :', 'Jl. Soekarno Hatta J21'),
-              SizedBox(
+              _rowMaker('Alamat :', alamat),
+              const SizedBox(
                 height: 68.5,
               ),
               Center(
                 child: Container(
                   height: 48,
                   width: 48,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.grey,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Center(
+              const Center(
                 child: Text(
                   'Lihat QR Code',
                   style: TextStyle(
@@ -119,7 +137,7 @@ class DetailTiketVaksin extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60.5,
               ),
               Center(
@@ -128,7 +146,7 @@ class DetailTiketVaksin extends StatelessWidget {
                   width: 345,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: Color.fromARGB(255, 10, 108, 157),
+                    color: const Color.fromARGB(255, 10, 108, 157),
                   ),
                   child: ElevatedButton(
                     onPressed: () {},
@@ -141,11 +159,11 @@ class DetailTiketVaksin extends StatelessWidget {
                         minimumSize:
                             MaterialStateProperty.all(const Size(345, 40)),
                         backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 10, 108, 157))),
+                            const Color.fromARGB(255, 10, 108, 157))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           'Unduh File PDF  ',
                           style: TextStyle(
                             fontSize: 14,
@@ -176,14 +194,14 @@ class DetailTiketVaksin extends StatelessWidget {
         children: [
           Text(
             dataKiri,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
           ),
           Text(
             dataKanan,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),

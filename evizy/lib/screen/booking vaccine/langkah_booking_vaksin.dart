@@ -1,4 +1,5 @@
 import 'package:evizy/model/hospital/hospital_by_id.dart';
+import 'package:evizy/screen/booking%20vaccine/tinjau_booking_vaccine_screen.dart';
 import 'package:evizy/view_model/city_view_model.dart';
 import 'package:evizy/view_model/get_hospital_by_id_view_model.dart';
 import 'package:evizy/view_model/hospital_view_model.dart';
@@ -6,11 +7,12 @@ import 'package:evizy/view_model/kabupaten_kota_view_model.dart';
 import 'package:evizy/view_model/kecamatan_view_model.dart';
 import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
+import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-enum YesOrNo { yes, no }
+enum YesOrNo { ya, tidak }
 
 class LangkahBookingVaksin extends StatefulWidget {
   const LangkahBookingVaksin({Key? key}) : super(key: key);
@@ -26,21 +28,20 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
   final _formKey = GlobalKey<FormState>();
 
   //Controller buat Form
-  final _kategoriController = TextEditingController();
+  TextEditingController _kategoriController = TextEditingController();
 
-  final _jalanController = TextEditingController();
-  final _jalanKtpController = TextEditingController();
-  final _tanggalController = TextEditingController();
+  TextEditingController _jalanController = TextEditingController();
+  TextEditingController _jalanKtpController = TextEditingController();
 
-  final _namaController = TextEditingController();
-  final _nikController = TextEditingController();
-  final _tanggalLahirController = TextEditingController();
-  final _nomorController = TextEditingController();
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _nikController = TextEditingController();
+  TextEditingController _tanggalLahirController = TextEditingController();
+  TextEditingController _nomorController = TextEditingController();
 
-  final _rtController = TextEditingController();
-  final _rwController = TextEditingController();
-  final _rtKtpController = TextEditingController();
-  final _rwKtpController = TextEditingController();
+  TextEditingController _rtController = TextEditingController();
+  TextEditingController _rwController = TextEditingController();
+  TextEditingController _rtKtpController = TextEditingController();
+  TextEditingController _rwKtpController = TextEditingController();
 
   //Buat Form Controller
   @override
@@ -48,7 +49,6 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
     super.dispose();
     _kategoriController.dispose();
     _jalanController.dispose();
-    _tanggalController.dispose();
     _jalanKtpController.dispose();
     _namaController.dispose();
     _nikController.dispose();
@@ -62,7 +62,8 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
 
   bool isChecked = false;
 
-  YesOrNo? _character = YesOrNo.yes;
+  YesOrNo? _character;
+  String? statusHamil;
 
   String dropdownJenisKelamin = 'Jenis Kelamin Anda';
   String dropdownKategori = 'Pilih Kategori Anda';
@@ -160,6 +161,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
     final kabupatenProvider = Provider.of<KabupatenKotaViewModel>(context);
     final kecamatanProvider = Provider.of<KecamatanViewModel>(context);
     final kelurahanProvider = Provider.of<KelurahanViewModel>(context);
+    final userProvider = Provider.of<UserViewModel>(context);
     GetHospitalByIDViewModel? sesiProvider =
         Provider.of<GetHospitalByIDViewModel>(context);
     return Scaffold(
@@ -206,7 +208,55 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                   _index += 1;
                 });
               } else if (isLastStep) {
-                print('Completed');
+                if (_formKey.currentState!.validate()) {
+                  if (dropdownJenisKelamin != 'Jenis Kelamin Anda' &&
+                      dropdownKategori != 'Pilih Kategori Anda' &&
+                      dropdownKota != 'Pilih Kota' &&
+                      dropdownVaskes != 'Pilih Faskes' &&
+                      dropdownProvinsi != 'Pilih Provinsi' &&
+                      dropdownKabupatenKota != 'Pilih Kabupaten' &&
+                      dropdownKecamatan != 'Pilih Kecamatan' &&
+                      dropdownKelurahan != 'Pilih Kelurahan' &&
+                      dropdownProvinsiKtp != 'Pilih Provinsi Domisili' &&
+                      dropdownKabupatenKotaKtp != 'Pilih Kabupaten Domisili' &&
+                      dropdownKecamatanKtp != 'Pilih Kecamatan Domisili' &&
+                      dropdownKelurahanKtp != 'Pilih Kelurahan Domisili' &&
+                      sesiHospital != null &&
+                      statusHamil != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TinjauBookingVaksinScreen(
+                                  jalan: _jalanController.text,
+                                  jalanKtp: _jalanKtpController.text,
+                                  jenisKelamin: dropdownJenisKelamin,
+                                  kabupaten: dropdownKabupatenKota,
+                                  kabupatenKtp: dropdownKabupatenKotaKtp,
+                                  kategori: dropdownKategori,
+                                  kecamatan: dropdownKecamatan,
+                                  kecamatanKtp: dropdownKecamatanKtp,
+                                  kelurahan: dropdownKelurahan,
+                                  kelurahanKtp: dropdownKelurahanKtp,
+                                  nama: _namaController.text,
+                                  nik: _nikController.text,
+                                  phoneNumber: _nomorController.text,
+                                  provinsi: dropdownProvinsi,
+                                  provinsiKtp: dropdownProvinsiKtp,
+                                  rt: _rtController.text,
+                                  rtKtp: _rtKtpController.text,
+                                  rw: _rwController.text,
+                                  rwKtp: _rwKtpController.text,
+                                  statusHamil: statusHamil!,
+                                  tanggalLahir: _tanggalLahirController.text,
+                                  tanggalVaksin:
+                                      sesiHospital!.data!.scheduleDate!,
+                                  tempatVaksin: dropdownVaskes,
+                                  waktuVaksin:
+                                      '${sesiHospital!.data!.scheduleTimeStart!}-${sesiHospital!.data!.scheduleTimeEnd!}',
+                                  faskesId: sesiHospital!.data!.id!,
+                                )));
+                  }
+                }
               }
             },
             onStepTapped: (int index) {
@@ -250,7 +300,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             ? MaterialStateProperty.all(const Size(330, 35))
                             : MaterialStateProperty.all(const Size(160, 35)),
                         backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 10, 108, 157))),
+                            const Color.fromARGB(255, 10, 108, 157))),
                     child: const Text('Selanjutnya'),
                   ),
                 ],
@@ -328,11 +378,12 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                 child: Row(
                                   children: [
                                     Radio(
-                                        value: YesOrNo.yes,
+                                        value: YesOrNo.ya,
                                         groupValue: _character,
                                         onChanged: (YesOrNo? value) {
                                           setState(() {
                                             _character = value;
+                                            statusHamil = 'ya';
                                           });
                                         }),
                                     const Expanded(
@@ -346,11 +397,12 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                 child: Row(
                                   children: [
                                     Radio(
-                                        value: YesOrNo.no,
+                                        value: YesOrNo.tidak,
                                         groupValue: _character,
                                         onChanged: (YesOrNo? value) {
                                           setState(() {
                                             _character = value;
+                                            statusHamil = 'tidak';
                                           });
                                         }),
                                     const Expanded(child: Text('Tidak'))
@@ -380,7 +432,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 18,
                       ),
                       Center(
@@ -539,7 +591,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Lokasi',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -548,11 +600,11 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   ),
                                 ),
                                 sesiHospital == null
-                                    ? Center()
+                                    ? const Center()
                                     : Text(
                                         sesiHospital!
                                             .data!.healthFacility!.name!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -566,7 +618,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Jenis Vaksin',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -575,10 +627,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   ),
                                 ),
                                 sesiHospital == null
-                                    ? Center()
+                                    ? const Center()
                                     : Text(
                                         sesiHospital!.data!.vaccine!.name!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -592,7 +644,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Tanggal Vaksin',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -601,10 +653,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   ),
                                 ),
                                 sesiHospital == null
-                                    ? Center()
+                                    ? const Center()
                                     : Text(
                                         sesiHospital!.data!.scheduleDate!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -618,7 +670,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Waktu Vaksin',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -627,10 +679,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   ),
                                 ),
                                 sesiHospital == null
-                                    ? Center()
+                                    ? const Center()
                                     : Text(
                                         '${sesiHospital!.data!.scheduleTimeStart!}-${sesiHospital!.data!.scheduleTimeEnd!}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -644,7 +696,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Sisa Kuota',
                                   style: TextStyle(
                                     color: Colors.black,
@@ -653,12 +705,12 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   ),
                                 ),
                                 sesiHospital == null
-                                    ? Center()
+                                    ? const Center()
                                     : Text(
                                         (sesiHospital!.data!.quantity! -
                                                 sesiHospital!.data!.booked!)
                                             .toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
@@ -704,7 +756,8 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _namaController,
+                          controller: _namaController = TextEditingController(
+                              text: userProvider.user.data!.name),
                           keyboardType: TextInputType.name,
                           decoration: const InputDecoration(
                             hintText: 'Masukkan Nama Lengkap',
@@ -713,10 +766,11 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             if (value!.isEmpty) {
                               return ("Masukkan Nama anda");
                             }
+                            return null;
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       const Padding(
@@ -731,7 +785,8 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _nikController,
+                          controller: _nikController = TextEditingController(
+                              text: userProvider.user.data!.nik),
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             String pattern = r'(^(?:[+0]9)?[0-9]{16}$)';
@@ -742,10 +797,11 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             if (!regExp.hasMatch(value)) {
                               return ("Masukkan NIK yang valid");
                             }
+                            return null;
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       const Padding(
@@ -759,7 +815,8 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: DropdownButton<String>(
-                          hint: Text(dropdownJenisKelamin),
+                          hint: Text(dropdownJenisKelamin =
+                              userProvider.user.data!.name!),
                           icon: const Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: Colors.black,
@@ -798,7 +855,9 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _tanggalLahirController,
+                          controller: _tanggalLahirController =
+                              TextEditingController(
+                                  text: userProvider.user.data!.dateOfBirth),
                           decoration: const InputDecoration(
                             hintText: 'Tanggal Lahir',
                           ),
@@ -810,12 +869,18 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1900),
                                 lastDate: DateTime(2100));
-                            _tanggalController.text =
+                            _tanggalLahirController.text =
                                 DateFormat('yyyy-MM-dd').format(date!);
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Masukkan Tanggal Lahir anda");
+                            }
+                            return null;
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
 
@@ -830,7 +895,8 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _nomorController,
+                          controller: _nomorController = TextEditingController(
+                              text: userProvider.user.data!.phoneNumber),
                           keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             hintText: 'Nomor Telepon',
@@ -844,10 +910,11 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             if (!regExp.hasMatch(value)) {
                               return ("Masukkan Nomor Telepon yang Valid");
                             }
+                            return null;
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Center(
@@ -875,7 +942,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                     ],
@@ -907,7 +974,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
                         const Text(
@@ -927,9 +994,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             if (value!.isEmpty) {
                               return ("Masukkan Jalan Rumah Anda");
                             }
+                            return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -970,7 +1038,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsProvinsi,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1011,7 +1079,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKabupatenKota,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1052,7 +1120,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKecamatan,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1082,7 +1150,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKelurahan,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         Row(
@@ -1092,7 +1160,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'RT',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -1107,17 +1175,18 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                       if (value!.isEmpty) {
                                         return ("Masukkan Nomor RT anda");
                                       }
+                                      return null;
                                     },
                                   ),
                                 ],
                               ),
                             ),
-                            VerticalDivider(),
+                            const VerticalDivider(),
                             Flexible(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'RW',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -1132,6 +1201,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                       if (value!.isEmpty) {
                                         return ("Masukkan Nomor RW anda");
                                       }
+                                      return null;
                                     },
                                   ),
                                 ],
@@ -1139,7 +1209,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
                         const Text(
@@ -1150,7 +1220,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         const Text(
@@ -1161,7 +1231,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Row(
@@ -1169,7 +1239,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             Checkbox(
                               checkColor: Colors.white,
                               fillColor: MaterialStateProperty.all(
-                                  Color.fromARGB(255, 10, 108, 157)),
+                                  const Color.fromARGB(255, 10, 108, 157)),
                               value: isChecked,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -1198,7 +1268,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
                         const Text(
@@ -1218,9 +1288,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             if (value!.isEmpty) {
                               return ("Masukkan Jalan Rumah Anda Saat ini");
                             }
+                            return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1261,7 +1332,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsProvinsi,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1302,7 +1373,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKabupatenKota,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1343,7 +1414,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKecamatan,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         const Text(
@@ -1373,7 +1444,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           },
                           items: dropdownItemsKelurahan,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         Row(
@@ -1383,7 +1454,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'RT',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -1398,17 +1469,18 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                       if (value!.isEmpty) {
                                         return ("Masukkan Nomor RT anda");
                                       }
+                                      return null;
                                     },
                                   ),
                                 ],
                               ),
                             ),
-                            VerticalDivider(),
+                            const VerticalDivider(),
                             Flexible(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'RW',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -1423,6 +1495,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                       if (value!.isEmpty) {
                                         return ("Masukkan Nomor RW anda");
                                       }
+                                      return null;
                                     },
                                   ),
                                 ],
@@ -1430,7 +1503,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
                       ],

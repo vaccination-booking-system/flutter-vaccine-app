@@ -1,8 +1,6 @@
 import 'package:evizy/screen/booking%20vaccine/daftar_vaksin_screen.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class PilihPesertaVaksinScreen extends StatefulWidget {
@@ -18,9 +16,9 @@ class _PilihPesertaVaksinScreenState extends State<PilihPesertaVaksinScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -37,7 +35,7 @@ class _PilihPesertaVaksinScreenState extends State<PilihPesertaVaksinScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 210,
             ),
             Container(
@@ -51,7 +49,7 @@ class _PilihPesertaVaksinScreenState extends State<PilihPesertaVaksinScreen> {
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   GestureDetector(
@@ -67,7 +65,8 @@ class _PilihPesertaVaksinScreenState extends State<PilihPesertaVaksinScreen> {
                       width: 345,
                       decoration: BoxDecoration(
                           border: Border.all(width: 0.5),
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
                           color: Colors.transparent),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

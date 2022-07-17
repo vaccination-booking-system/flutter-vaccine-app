@@ -1,16 +1,10 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:evizy/model/api/services_api.dart';
 import 'package:evizy/screen/add%20family%20member/family_member_screen.dart';
 import 'package:evizy/screen/booking%20vaccine/booking_vaccine_screen.dart';
 import 'package:evizy/screen/profile/dashboard_screen.dart';
 import 'package:evizy/screen/tiket%20vaksin/tiket_vaksin_screen.dart';
-import 'package:evizy/utils/constant/preferences_key.dart';
-import 'package:evizy/utils/decode/jwt_decode.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -29,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<Color> gridColor = [
-    Color.fromARGB(255, 250, 199, 104),
-    Color.fromARGB(255, 228, 109, 100),
-    Color.fromARGB(255, 40, 171, 108)
+    const Color.fromARGB(255, 250, 199, 104),
+    const Color.fromARGB(255, 228, 109, 100),
+    const Color.fromARGB(255, 40, 171, 108)
   ];
 
   int carouselIndex = 0;
@@ -39,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
@@ -55,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   MaterialPageRoute(
                       builder: (context) => const DashboardScreen()));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.person_rounded,
               color: Colors.black,
             )),
@@ -66,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               final lisss = await serviceApi.getProvinsi();
               print(lisss);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications_rounded,
               color: Colors.black,
             ),
@@ -93,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(40),
                                   topRight: Radius.circular(40)),
@@ -104,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 height: 100,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 16),
                                 child: Text(
                                   'Tentang Anda',
                                   style: TextStyle(
@@ -130,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const Size(345, 70)),
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Color.fromARGB(
+                                              const Color.fromARGB(
                                                   255, 5, 105, 151))),
                                   child: Row(
                                     mainAxisAlignment:
@@ -146,13 +140,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           children: [
                                             Row(
                                               children: [
-                                                Text(
+                                                const Text(
                                                   'PCR Antigen',
                                                   style: TextStyle(
                                                       fontSize: 24,
                                                       color: Colors.white),
                                                 ),
-                                                VerticalDivider(),
+                                                const VerticalDivider(),
                                                 Container(
                                                   height: MediaQuery.of(context)
                                                           .size
@@ -163,13 +157,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .width /
                                                       8,
                                                   decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 123, 203, 156),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             12.0),
                                                   ),
-                                                  child: Center(
+                                                  child: const Center(
                                                       child: Text(
                                                     'Negatif',
                                                     style: TextStyle(
@@ -181,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ],
                                             ),
-                                            Text(
+                                            const Text(
                                               'Berlaku Hingga 25 Desember 2021  (16:00)',
                                               style: TextStyle(
                                                   fontSize: 12,
@@ -190,9 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 4),
                                         child: Icon(
                                             Icons.keyboard_arrow_right_rounded,
                                             color: Colors.black),
@@ -217,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const Size(345, 70)),
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Color.fromARGB(
+                                              const Color.fromARGB(
                                                   255, 237, 245, 251))),
                                   child: Row(
                                     mainAxisAlignment:
@@ -230,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: [
+                                          children: const [
                                             Text(
                                               'Sertifikat',
                                               style: TextStyle(
@@ -246,9 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 4),
                                         child: Icon(
                                             Icons.keyboard_arrow_right_rounded,
                                             color: Colors.black),
@@ -257,8 +249,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 16),
                                 child: Text(
                                   'Layanan Tersedia',
                                   style: TextStyle(
@@ -267,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 12,
                               ),
                               Expanded(
@@ -318,7 +310,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 72,
                                               child: Text(
                                                 testData[index],
-                                                style: TextStyle(fontSize: 12),
+                                                style: const TextStyle(
+                                                    fontSize: 12),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -336,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         height: 171,
                         width: 349,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(17)),
                             color: Color.fromRGBO(236, 236, 236, 1),
                             boxShadow: [
@@ -353,8 +346,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 171,
                                     width: 349,
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(17)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(17)),
                                       color: testColor[index],
                                     ),
                                   );
@@ -367,9 +360,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   enableInfiniteScroll: true,
                                   reverse: false,
                                   autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
+                                  autoPlayInterval: const Duration(seconds: 3),
                                   autoPlayAnimationDuration:
-                                      Duration(milliseconds: 800),
+                                      const Duration(milliseconds: 800),
                                   autoPlayCurve: Curves.fastOutSlowIn,
                                   enlargeCenterPage: true,
                                   onPageChanged: (index, _) {

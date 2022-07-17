@@ -1,10 +1,7 @@
 import 'package:evizy/screen/profile/edit_profile_screen.dart';
-import 'package:evizy/utils/constant/preferences_key.dart';
-import 'package:evizy/utils/decode/jwt_decode.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -54,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
-                              topRight: const Radius.circular(40))),
+                              topRight: Radius.circular(40))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -209,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   minimumSize: MaterialStateProperty.all(
                                       const Size(345, 40)),
                                   backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 10, 108, 157))),
+                                      const Color.fromARGB(255, 10, 108, 157))),
                               child: const Text('Edit Profile'),
                             ),
                           ),

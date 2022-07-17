@@ -1,5 +1,6 @@
-import 'package:evizy/screen/home/home_screen.dart';
+import 'package:evizy/screen/splash/splash_screen2.dart';
 import 'package:evizy/screen/streams/login_screen.dart';
+import 'package:evizy/view_model/auth_view_model.dart';
 import 'package:evizy/view_model/register_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,10 +49,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final registerProvider = Provider.of<RegisterViewModel>(context);
+    final authProvider = Provider.of<AuthViewModel>(context);
     //Width
     var width = MediaQuery.of(context).size.width / 1.14;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 10, 108, 157),
+      backgroundColor: const Color.fromARGB(255, 10, 108, 157),
       body: SafeArea(
         child: Form(
             key: _formKey, //Global Form Key
@@ -68,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 24,
                       ),
-                      Center(
+                      const Center(
                         child: Text('Buat Akun Baru',
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500)),
@@ -101,6 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (nameRegExp.hasMatch(value)) {
                               return ("Masukkan Nama yang valid");
                             }
+                            return null;
                           },
                         ),
                       ),
@@ -132,6 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (!regExp.hasMatch(value)) {
                               return ("Masukkan NIK yang valid");
                             }
+                            return null;
                           },
                         ),
                       ),
@@ -163,6 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (!regExp.hasMatch(value)) {
                               return ("Masukkan Nomor Telepon yang Valid");
                             }
+                            return null;
                           },
                         ),
                       ),
@@ -229,11 +234,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       _passwordController.text);
                               if (isAvailable) {
                                 if (mounted) {
+                                  authProvider.setToken(registerProvider
+                                      .login.data!.accessToken!);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const HomeScreen()));
+                                              const SecondSplashScreen()));
                                 }
                               }
                             }
@@ -247,7 +254,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               minimumSize: MaterialStateProperty.all(
                                   const Size(297, 39)),
                               backgroundColor: MaterialStateProperty.all(
-                                  Color.fromARGB(255, 10, 108, 157))),
+                                  const Color.fromARGB(255, 10, 108, 157))),
                           child: const Text(
                             'Daftar',
                             style: TextStyle(fontWeight: FontWeight.w500),
@@ -270,7 +277,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Navigator.pushAndRemoveUntil(
                                   (context),
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
+                                      builder: (context) =>
+                                          const LoginScreen()),
                                   (route) => false);
                             },
                             child: const Text(

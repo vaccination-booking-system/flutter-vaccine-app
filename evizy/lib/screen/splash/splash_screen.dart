@@ -9,6 +9,7 @@ import 'package:evizy/view_model/kabupaten_kota_view_model.dart';
 import 'package:evizy/view_model/kecamatan_view_model.dart';
 import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
+import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
     getUserId().then((value) {
       Provider.of<GetFamilyMemberViewModel>(context, listen: false)
           .getFamilyMember(userId!);
-      Provider.of<UserViewModel>(context, listen: false).getUser(userId!);
+      Provider.of<UserViewModel>(context, listen: false)
+          .getUser(context, userId!);
       Provider.of<CityViewModel>(context, listen: false).getCity();
       Provider.of<HospitalViewModel>(context, listen: false).getHospital(1);
       Provider.of<ProvinsiViewModel>(context, listen: false).getProvinsi();
@@ -69,6 +71,8 @@ class _SplashScreenState extends State<SplashScreen> {
           .getKecamatan(1101);
       Provider.of<KelurahanViewModel>(context, listen: false)
           .getKelurahan(1101010);
+      Provider.of<GetTiketVaksinViewModel>(context, listen: false)
+          .getTiketVaksin();
     });
     getPrefs();
   }

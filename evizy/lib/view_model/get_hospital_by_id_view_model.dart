@@ -12,7 +12,6 @@ class GetHospitalByIDViewModel with ChangeNotifier {
     try {
       final data = await serviceApi.getHospitalById(id);
       _hospital = data;
-      print(data.message);
       notifyListeners();
     } catch (e) {
       if (e is DioError) {

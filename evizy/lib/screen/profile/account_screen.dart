@@ -1,7 +1,5 @@
 import 'package:evizy/screen/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -9,9 +7,9 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -41,14 +39,14 @@ class AccountScreen extends StatelessWidget {
                     Container(
                       height: MediaQuery.of(context).size.height / 1.26,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
                               topRight: Radius.circular(40))),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 58,
                           ),
                           GestureDetector(
@@ -62,26 +60,26 @@ class AccountScreen extends StatelessWidget {
                             child: Container(
                               height: 37,
                               width: 345,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                               ),
-                              child: Text('Profile',
+                              child: const Text('Profile',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                   )),
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 0.5,
                           ),
                           Container(
                             height: 37,
                             width: 345,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
-                            child: Text('Kata Sandi',
+                            child: const Text('Kata Sandi',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -96,11 +94,11 @@ class AccountScreen extends StatelessWidget {
                   child: Container(
                     height: 52,
                     width: 92,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       color: Color.fromARGB(255, 10, 108, 157),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Akun',
                         style: TextStyle(

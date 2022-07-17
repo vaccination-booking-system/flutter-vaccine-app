@@ -1,8 +1,5 @@
 import 'package:evizy/screen/booking%20vaccine/pilih_peserta_vaksin_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class BookingVaccine extends StatelessWidget {
   const BookingVaccine({Key? key}) : super(key: key);
@@ -11,9 +8,9 @@ class BookingVaccine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: const Text(
@@ -33,16 +30,16 @@ class BookingVaccine extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 406,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 10, 108, 157),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 53,
             ),
             Container(
               width: 285,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Daftar Vaksin Online',
                   style: TextStyle(
@@ -53,12 +50,12 @@ class BookingVaccine extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 19,
             ),
             Container(
               width: 290,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Lakukan Pendaftaran Vaksin Secara Online, Lalu Sesuaikan Jenis Vaksin Dan Jadwal Yang Anda Inginkan.',
                   style: TextStyle(
@@ -69,7 +66,7 @@ class BookingVaccine extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 76,
             ),
             ElevatedButton(
@@ -79,7 +76,6 @@ class BookingVaccine extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
                               const PilihPesertaVaksinScreen()));
-                  Fluttertoast.showToast(msg: 'Under Development');
                 },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -88,8 +84,8 @@ class BookingVaccine extends StatelessWidget {
                     )),
                     minimumSize: MaterialStateProperty.all(const Size(172, 54)),
                     backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 10, 108, 157))),
-                child: Text(
+                        const Color.fromARGB(255, 10, 108, 157))),
+                child: const Text(
                   'Dapatkan',
                   style: TextStyle(
                     fontSize: 16,

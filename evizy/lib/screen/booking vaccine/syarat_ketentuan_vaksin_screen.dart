@@ -1,8 +1,6 @@
 import 'package:evizy/model/expansion_panel/expansion_panel_model.dart';
 import 'package:evizy/screen/booking%20vaccine/langkah_booking_vaksin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class SyaratDanKetentuan extends StatefulWidget {
   const SyaratDanKetentuan({Key? key}) : super(key: key);
@@ -41,9 +39,9 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -78,17 +76,17 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 54,
                           ),
                           _buildPanel(),
-                          SizedBox(
+                          const SizedBox(
                             height: 27,
                           ),
                           Container(
                             height: 130,
                             width: 345,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 10, 108, 157),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(20),
@@ -129,7 +127,7 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 60,
                           ),
                           ElevatedButton(
@@ -149,10 +147,10 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
                                 minimumSize: MaterialStateProperty.all(
                                     const Size(345, 40)),
                                 backgroundColor: MaterialStateProperty.all(
-                                    Color.fromARGB(255, 10, 108, 157))),
+                                    const Color.fromARGB(255, 10, 108, 157))),
                             child: const Text('Saya Mengerti'),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 60.5,
                           ),
                         ],
@@ -164,7 +162,7 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
                   child: Container(
                     height: 43,
                     width: 255,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       color: Color.fromARGB(255, 10, 108, 157),
                     ),
@@ -209,7 +207,8 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
               padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
               child: Text(
                 ExpansionPanelModel.expandedValue,
-                style: TextStyle(color: Color.fromARGB(255, 190, 190, 190)),
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 190, 190, 190)),
               ),
             ),
             isExpanded: ExpansionPanelModel.isExpanded,

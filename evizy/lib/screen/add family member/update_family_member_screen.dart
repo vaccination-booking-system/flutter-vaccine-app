@@ -1,4 +1,4 @@
-import 'package:evizy/screen/add%20family%20member/add_family_member_screen.dart';
+import 'package:evizy/screen/splash/splash_screen.dart';
 import 'package:evizy/view_model/update_family_member_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -68,9 +68,9 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
     final updateFamilyMemberProvider =
         Provider.of<UpdateFamilyMemberViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -86,7 +86,7 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40), topRight: Radius.circular(40)),
             color: Colors.white),
@@ -96,7 +96,7 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
                 const Padding(
@@ -119,10 +119,11 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                       if (value!.isEmpty) {
                         return ("Masukkan Nama anda");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -147,10 +148,11 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                       if (!regExp.hasMatch(value)) {
                         return ("Masukkan NIK yang valid");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -217,7 +219,7 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -258,7 +260,7 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -285,10 +287,11 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                       if (!regExp.hasMatch(value)) {
                         return ("Masukkan Nomor Telepon yang Valid");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 142,
                 ),
                 Row(
@@ -303,7 +306,8 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
-                                    side: BorderSide(color: Colors.black))),
+                                    side:
+                                        const BorderSide(color: Colors.black))),
                             minimumSize:
                                 MaterialStateProperty.all(const Size(168, 39)),
                             backgroundColor:
@@ -378,13 +382,12 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                                     Center(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.pushReplacement<void, void>(
-                                            context,
-                                            MaterialPageRoute<void>(
-                                              builder: (BuildContext context) =>
-                                                  const AddFamilyMemberScreen(),
-                                            ),
-                                          );
+                                          Navigator.pushAndRemoveUntil(
+                                              (context),
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SplashScreen()),
+                                              (route) => false);
                                         },
                                         style: ButtonStyle(
                                             shape: MaterialStateProperty.all<
@@ -398,9 +401,9 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                                                     const Size(240, 42)),
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    Color.fromARGB(
+                                                    const Color.fromARGB(
                                                         255, 10, 108, 157))),
-                                        child: Text('Konfirmasi'),
+                                        child: const Text('Konfirmasi'),
                                       ),
                                     )
                                   ],
@@ -419,7 +422,7 @@ class _UpdateFamilyMemberScreenState extends State<UpdateFamilyMemberScreen> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(168, 39)),
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 10, 108, 157))),
+                              const Color.fromARGB(255, 10, 108, 157))),
                       child: const Text('Update'),
                     ),
                   ],

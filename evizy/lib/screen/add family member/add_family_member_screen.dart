@@ -1,4 +1,3 @@
-import 'package:evizy/model/family%20member%20model/family_member_model.dart';
 import 'package:evizy/screen/add%20family%20member/family_member_screen.dart';
 import 'package:evizy/screen/add%20family%20member/form_add_family_member_screen.dart';
 import 'package:evizy/screen/add%20family%20member/update_family_member_screen.dart';
@@ -90,7 +89,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                               children: [
                                 const Text(
                                   'Profil Anda',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white),
@@ -144,7 +143,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                     height: 12,
                   ),
                   familyProvider.familyMember.data!.isEmpty
-                      ? Center()
+                      ? const Center()
                       : Flexible(
                           child: _listFamilyMaker(
                               familyProvider, deleteFamilyProvider)),
@@ -196,7 +195,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
           child: Container(
             height: 60,
             width: 335,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.transparent,
             ),
             child: Row(
@@ -204,7 +203,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
               children: [
                 Text(
                   name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   children: [
@@ -227,7 +227,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                           ),
                         );
                       },
-                      icon: Icon(Icons.update_rounded),
+                      icon: const Icon(Icons.update_rounded),
                     ),
                     IconButton(
                       onPressed: () {
@@ -257,7 +257,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            FamilyMemberScreen(),
+                                            const FamilyMemberScreen(),
                                       ),
                                     );
                                   },
@@ -273,7 +273,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                           },
                         );
                       },
-                      icon: Icon(Icons.delete_rounded),
+                      icon: const Icon(Icons.delete_rounded),
                     )
                   ],
                 ),

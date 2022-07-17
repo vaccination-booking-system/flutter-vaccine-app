@@ -13,9 +13,9 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: const Text(
@@ -35,16 +35,16 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
             Container(
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 10, 108, 157),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 53,
             ),
             Container(
               width: 202,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Daftarkan Keluarga Anda',
                   style: TextStyle(
@@ -55,12 +55,12 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 19,
             ),
             Container(
               width: 286,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Daftarkan Keluarga Anda , Cukup Dengan Menambahkan Data Diri Mereka.',
                   style: TextStyle(
@@ -71,7 +71,7 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 62,
             ),
             ElevatedButton(
@@ -88,8 +88,8 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
                     )),
                     minimumSize: MaterialStateProperty.all(const Size(172, 54)),
                     backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 10, 108, 157))),
-                child: Text(
+                        const Color.fromARGB(255, 10, 108, 157))),
+                child: const Text(
                   'Dapatkan',
                   style: TextStyle(
                     fontSize: 16,

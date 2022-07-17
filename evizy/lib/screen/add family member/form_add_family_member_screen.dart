@@ -36,12 +36,12 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
 
   @override
   Widget build(BuildContext context) {
-    final AddFamilyMemberProvider =
+    final addFamilyMemberProvider =
         Provider.of<AddFamilyMemberViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -57,7 +57,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40), topRight: Radius.circular(40)),
             color: Colors.white),
@@ -67,7 +67,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
                 const Padding(
@@ -90,10 +90,11 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                       if (value!.isEmpty) {
                         return ("Masukkan Nama anda");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -118,10 +119,11 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                       if (!regExp.hasMatch(value)) {
                         return ("Masukkan NIK yang valid");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -188,7 +190,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -229,7 +231,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 const Padding(
@@ -256,10 +258,11 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                       if (!regExp.hasMatch(value)) {
                         return ("Masukkan Nomor Telepon yang Valid");
                       }
+                      return null;
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 142,
                 ),
                 Row(
@@ -274,7 +277,8 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
-                                    side: BorderSide(color: Colors.black))),
+                                    side:
+                                        const BorderSide(color: Colors.black))),
                             minimumSize:
                                 MaterialStateProperty.all(const Size(168, 39)),
                             backgroundColor:
@@ -292,7 +296,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                             dropdownHubungan != 'Pilih Hubungan' &&
                             dropdownJenisKelamin != 'Jenis Kelamin Anda') {
                           final bool isAvailable =
-                              await AddFamilyMemberProvider.createFamilyMember(
+                              await addFamilyMemberProvider.createFamilyMember(
                             _namaController.text,
                             _nikController.text,
                             _nomorController.text,
@@ -367,9 +371,9 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                                                     const Size(240, 42)),
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    Color.fromARGB(
+                                                    const Color.fromARGB(
                                                         255, 10, 108, 157))),
-                                        child: Text('Konfirmasi'),
+                                        child: const Text('Konfirmasi'),
                                       ),
                                     )
                                   ],
@@ -388,7 +392,7 @@ class _FormAddFamilyMemberState extends State<FormAddFamilyMember> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(168, 39)),
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 10, 108, 157))),
+                              const Color.fromARGB(255, 10, 108, 157))),
                       child: const Text('Tambahkan'),
                     ),
                   ],

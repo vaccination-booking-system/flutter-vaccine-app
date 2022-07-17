@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:evizy/model/booking%20vaccine/booking_vaccine_model.dart';
 import 'package:evizy/model/citizen/login_model.dart';
 import 'package:evizy/model/citizen/register_model.dart';
 import 'package:evizy/model/city/city_model.dart';
@@ -9,13 +8,13 @@ import 'package:evizy/model/family%20member%20model/delete_family_member_model.d
 import 'package:evizy/model/family%20member%20model/family_member_model.dart';
 import 'package:evizy/model/hospital/hospital_by_id.dart';
 import 'package:evizy/model/hospital/hospital_model.dart';
+import 'package:evizy/model/tiket%20vaksin/tiket_vaksin_model.dart';
 import 'package:evizy/model/user/user_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kabupaten_kota_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kecamatan_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kelurahan.dart';
 import 'package:evizy/model/wilayah%20indonesia/provinsi_model.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceApi {
@@ -36,9 +35,15 @@ class ServiceApi {
       return handler.next(response); // continue
       // If you want to reject the request with a error message,
       // you can reject a `DioError` object eg: `handler.reject(dioError)`
-    }, onError: (DioError e, handler) {
-      e.response!.statusCode;
+    }, onError: (DioError e, handler) async {
       // Do something with response error
+      if (e.response!.statusCode == 401) {
+        final pref = await SharedPreferences.getInstance();
+        pref.clear();
+      } else if (e.response!.statusCode == 403) {
+        final pref = await SharedPreferences.getInstance();
+        pref.clear();
+      }
       return handler.next(e); //continue
       // If you want to resolve the request with some custom data，
       // you can resolve a `Response` object eg: `handler.resolve(response)`.
@@ -58,7 +63,7 @@ class ServiceApi {
       if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
         return LoginModel.fromJson(e.response!.data);
       } else {
-        throw e;
+        rethrow;
       }
     }
   }
@@ -79,7 +84,7 @@ class ServiceApi {
       if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
         return RegisterModel.fromJson(e.response!.data);
       } else {
-        throw e;
+        rethrow;
       }
     }
   }
@@ -113,7 +118,7 @@ class ServiceApi {
       final token = prefs.get(PreferencesKeys.token).toString();
       dio.options.headers.addAll({'Authorization': 'Bearer $token'});
 
-      final url = '$baseUrl/auth/family-members';
+      final url = '$baseUrl/family-members';
       final response = await dio.post(url, data: {
         "name": name,
         "nik": nik,
@@ -129,7 +134,7 @@ class ServiceApi {
       if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
         return CreateFamilyMember.fromJson(e.response!.data);
       } else {
-        throw e;
+        rethrow;
       }
     }
   }
@@ -181,7 +186,7 @@ class ServiceApi {
       final token = prefs.get(PreferencesKeys.token).toString();
       dio.options.headers.addAll({'Authorization': 'Bearer $token'});
 
-      final url = '$baseUrl/auth/family-members/$id';
+      final url = '$baseUrl/family-members/$id';
       final response = await dio.put(url, data: {
         "name": name,
         "nik": nik,
@@ -197,7 +202,7 @@ class ServiceApi {
       if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
         return CreateFamilyMember.fromJson(e.response!.data);
       } else {
-        throw e;
+        rethrow;
       }
     }
   }
@@ -263,7 +268,6 @@ class ServiceApi {
       final response = await dio.get(url);
 
       final data = response.data;
-      print(response.statusCode);
       return HospitalByIdModel.fromJson(data);
     } on DioError catch (e) {
       print(e.response!.statusCode);
@@ -325,6 +329,71 @@ class ServiceApi {
       List<KelurahanModel> dataList =
           data.map((m) => KelurahanModel.fromJson(m)).toList();
       return dataList;
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<bookingVaccineModel> bookingVaccine(
+    int id,
+    String kategori,
+    bool statusHamil,
+    String jalan,
+    String kelurahan,
+    String kecamatan,
+    String kabupaten,
+    String provinsi,
+    String jalanKtp,
+    String kelurahanKtp,
+    String kecamatanKtp,
+    String kabupatenKtp,
+    String provinsiKtp,
+  ) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+
+      final url = '$baseUrl/vaccination-pass';
+      final response = await dio.post(url, data: {
+        "vaccination_session": {"id": id},
+        "age_category": kategori,
+        "is_pregnant": statusHamil,
+        "id_address": jalan,
+        "id_urban_village": kelurahan,
+        "id_sub_district": kecamatan,
+        "id_city": kabupaten,
+        "id_province": provinsi,
+        "curr_address": jalanKtp,
+        "curr_urban_village": kelurahanKtp,
+        "curr_sub_district": kecamatanKtp,
+        "curr_city": kabupatenKtp,
+        "curr_province": provinsiKtp,
+      });
+
+      final data = response.data;
+      return bookingVaccineModel.fromJson(data);
+    } on DioError catch (e) {
+      if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
+        return bookingVaccineModel.fromJson(e.response!.data);
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  Future<TiketVaksineModel> getTiketVaksin() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/vaccination-pass';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return TiketVaksineModel.fromJson(data);
     } on DioError catch (e) {
       print(e.response!.statusCode);
       rethrow;

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -35,9 +33,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -50,20 +48,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Stack(
               children: [
                 Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height / 1.26,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
@@ -73,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 65,
                             ),
                             const Padding(
@@ -97,6 +95,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   if (value!.isEmpty) {
                                     return ("Masukkan Nama anda");
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -127,6 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   if (value.length != 16) {
                                     return ("Enter Valid NIK( 16 Character)");
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -224,6 +224,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   if (value.length <= 11) {
                                     return ("Masukkan Nomor Telepon yang Valid");
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -242,7 +243,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     minimumSize: MaterialStateProperty.all(
                                         const Size(345, 40)),
                                     backgroundColor: MaterialStateProperty.all(
-                                        Color.fromARGB(255, 10, 108, 157))),
+                                        const Color.fromARGB(
+                                            255, 10, 108, 157))),
                                 child: const Text('Simpan'),
                               ),
                             ),
@@ -256,7 +258,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Container(
                     height: 80,
                     width: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       color: Colors.red,
                     ),

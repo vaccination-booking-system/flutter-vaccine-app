@@ -8,10 +8,9 @@ import 'package:evizy/view_model/kabupaten_kota_view_model.dart';
 import 'package:evizy/view_model/kecamatan_view_model.dart';
 import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
+import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,7 +38,8 @@ class _SecondSplashScreenState extends State<SecondSplashScreen> {
   void initState() {
     super.initState();
     getUserId().then((value) {
-      Provider.of<UserViewModel>(context, listen: false).getUser(userId!);
+      Provider.of<UserViewModel>(context, listen: false)
+          .getUser(context, userId!);
       Provider.of<GetFamilyMemberViewModel>(context, listen: false)
           .getFamilyMember(userId!);
       Provider.of<CityViewModel>(context, listen: false).getCity();
@@ -51,6 +51,8 @@ class _SecondSplashScreenState extends State<SecondSplashScreen> {
           .getKecamatan(1101);
       Provider.of<KelurahanViewModel>(context, listen: false)
           .getKelurahan(1101010);
+      Provider.of<GetTiketVaksinViewModel>(context, listen: false)
+          .getTiketVaksin();
       Navigator.pushAndRemoveUntil(
           (context),
           MaterialPageRoute(builder: (context) => const HomeScreen()),

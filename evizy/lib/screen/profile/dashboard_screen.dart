@@ -1,15 +1,11 @@
 import 'package:evizy/screen/profile/account_screen.dart';
-import 'package:evizy/screen/profile/edit_profile_screen.dart';
 import 'package:evizy/screen/profile/faq_screen.dart';
 import 'package:evizy/screen/profile/riwayat_test_covid_screen.dart';
 import 'package:evizy/screen/profile/tentang_kami_screen.dart';
 import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
-import 'package:evizy/utils/decode/jwt_decode.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,9 +21,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -40,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(40), topRight: Radius.circular(40)),
@@ -54,7 +50,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Container(
                 height: 80,
                 width: 80,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(90)),
                   color: Colors.red,
                 ),
@@ -64,11 +60,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               Text(
                 userProvider.user.data!.name!,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
               Text(
                 userProvider.user.data!.phoneNumber!,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               const SizedBox(
                 height: 60,
@@ -78,7 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: 345,
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
                   onTap: () {
@@ -94,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.history_rounded),
                             SizedBox(
                               width: 8,
@@ -102,7 +100,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Riwayat Test Covid-19"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),
@@ -116,7 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: 345,
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
                   onTap: () {},
@@ -126,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.file_copy),
                             SizedBox(
                               width: 8,
@@ -134,7 +132,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Sertifikat Vaksin"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),
@@ -148,7 +146,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: 345,
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
                   onTap: () {
@@ -163,7 +161,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.star_outline),
                             SizedBox(
                               width: 8,
@@ -171,7 +169,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("FAQ"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),
@@ -185,7 +183,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: 345,
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
                   onTap: () {
@@ -200,7 +198,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.people_alt),
                             SizedBox(
                               width: 8,
@@ -208,7 +206,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Tentang Kami"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),
@@ -222,7 +220,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: 345,
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                     color: Colors.transparent),
                 child: GestureDetector(
                   onTap: () {
@@ -237,7 +235,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.settings_rounded),
                             SizedBox(
                               width: 8,
@@ -245,7 +243,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Akun"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),
@@ -261,7 +259,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   prefs.remove(PreferencesKeys.token);
                   Navigator.pushAndRemoveUntil(
                       (context),
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
                       (route) => false);
                 },
                 child: Container(
@@ -269,7 +268,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   width: 345,
                   decoration: BoxDecoration(
                       border: Border.all(width: 0.5),
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
                       color: Colors.transparent),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
@@ -277,7 +276,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.logout_rounded),
                             SizedBox(
                               width: 8,
@@ -285,7 +284,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Keluar"),
                           ],
                         ),
-                        Icon(Icons.keyboard_arrow_right_rounded)
+                        const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
                     ),
                   ),

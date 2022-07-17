@@ -1,6 +1,8 @@
 import 'package:evizy/screen/splash/splash_screen.dart';
+import 'package:evizy/utils/constant/main_navigator_key.dart';
 import 'package:evizy/view_model/add_family_member_view_model.dart';
 import 'package:evizy/view_model/auth_view_model.dart';
+import 'package:evizy/view_model/booking_vaccine_view_model.dart';
 import 'package:evizy/view_model/city_view_model.dart';
 import 'package:evizy/view_model/delete_family_member_view_model.dart';
 import 'package:evizy/view_model/get_family_member_view_model.dart';
@@ -12,6 +14,7 @@ import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/login_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
 import 'package:evizy/view_model/register_view_model.dart';
+import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/update_family_member_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +68,17 @@ void main() {
       ChangeNotifierProvider(
         create: (_) => KelurahanViewModel(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => BookingVaccineViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => GetTiketVaksinViewModel(),
+      ),
     ],
-    child: const MaterialApp(
+    child: MaterialApp(
+      navigatorKey: MainNavigasiKey.mainNavigatorKey,
       title: 'Evizy',
-      home: SplashScreen(),
+      home: const SplashScreen(),
     ),
   ));
 }

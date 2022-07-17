@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:evizy/model/api/services_api.dart';
 import 'package:evizy/model/family%20member%20model/create_family_member_screen.dart';
 import 'package:flutter/cupertino.dart';

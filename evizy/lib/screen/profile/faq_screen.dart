@@ -28,9 +28,9 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -53,7 +53,7 @@ class _FAQScreenState extends State<FAQScreen> {
             Container(
               height: MediaQuery.of(context).size.height / 1.213,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
@@ -89,7 +89,8 @@ class _FAQScreenState extends State<FAQScreen> {
               padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
               child: Text(
                 ExpansionPanelModel.expandedValue,
-                style: TextStyle(color: Color.fromARGB(255, 190, 190, 190)),
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 190, 190, 190)),
               ),
             ),
             isExpanded: ExpansionPanelModel.isExpanded,
