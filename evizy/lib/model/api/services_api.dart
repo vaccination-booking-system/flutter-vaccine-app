@@ -3,9 +3,24 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:evizy/model/citizen/login_model.dart';
 import 'package:evizy/model/citizen/register_model.dart';
+import 'package:evizy/model/city/city_model.dart';
+import 'package:evizy/model/family%20member%20model/create_family_member_screen.dart';
+import 'package:evizy/model/family%20member%20model/delete_family_member_model.dart';
+import 'package:evizy/model/family%20member%20model/family_member_model.dart';
+import 'package:evizy/model/hospital/hospital_by_id.dart';
+import 'package:evizy/model/hospital/hospital_model.dart';
+import 'package:evizy/model/user/user_model.dart';
+import 'package:evizy/model/wilayah%20indonesia/kabupaten_kota_model.dart';
+import 'package:evizy/model/wilayah%20indonesia/kecamatan_model.dart';
+import 'package:evizy/model/wilayah%20indonesia/kelurahan.dart';
+import 'package:evizy/model/wilayah%20indonesia/provinsi_model.dart';
+import 'package:evizy/utils/constant/preferences_key.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceApi {
   final baseUrl = 'http://50.19.175.143/api/v1';
+  final baseUrl2 = 'http://www.emsifa.com/api-wilayah-indonesia/api';
   final Dio dio = Dio();
 
   ServiceApi() {
@@ -55,7 +70,7 @@ class ServiceApi {
       final response = await dio.post(url, data: {
         "name": name,
         "nik": nik,
-        "phoneNumber": phoneNumber,
+        "phone_number": phoneNumber,
         "password": password,
       });
       final data = response.data;
@@ -66,6 +81,253 @@ class ServiceApi {
       } else {
         throw e;
       }
+    }
+  }
+
+  Future<UserModel> getUser(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/users/$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return UserModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<CreateFamilyMember> createFamilyMember(
+      String name,
+      String nik,
+      String phoneNumber,
+      String dateOfBirth,
+      String gender,
+      String relationship) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+
+      final url = '$baseUrl/auth/family-members';
+      final response = await dio.post(url, data: {
+        "name": name,
+        "nik": nik,
+        "phone_number": phoneNumber,
+        "date_of_birth": dateOfBirth,
+        "gender": gender,
+        "relationship": relationship,
+      });
+
+      final data = response.data;
+      return CreateFamilyMember.fromJson(data);
+    } on DioError catch (e) {
+      if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
+        return CreateFamilyMember.fromJson(e.response!.data);
+      } else {
+        throw e;
+      }
+    }
+  }
+
+  Future<FamilyMemberModel> getFamilyMember(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/family-members?user_id=$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return FamilyMemberModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<FamilyMemberModel> getFamilyMemberById(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/family-members/$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return FamilyMemberModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<CreateFamilyMember> updateFamilyMember(
+      int id,
+      String name,
+      String nik,
+      String phoneNumber,
+      String dateOfBirth,
+      String gender,
+      String relationship) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+
+      final url = '$baseUrl/auth/family-members/$id';
+      final response = await dio.put(url, data: {
+        "name": name,
+        "nik": nik,
+        "phone_number": phoneNumber,
+        "date_of_birth": dateOfBirth,
+        "gender": gender,
+        "relationship": relationship,
+      });
+
+      final data = response.data;
+      return CreateFamilyMember.fromJson(data);
+    } on DioError catch (e) {
+      if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
+        return CreateFamilyMember.fromJson(e.response!.data);
+      } else {
+        throw e;
+      }
+    }
+  }
+
+  Future<DeleteFamilyMember> deleteFamilyMember(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/family-members/$id';
+      final response = await dio.delete(url);
+
+      final data = response.data;
+      return DeleteFamilyMember.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<CityModel> getCity() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/cities';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return CityModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<HospitalModel> getHospital(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/vaccination-session?city_id=$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return HospitalModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<HospitalByIdModel> getHospitalById(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/vaccination-session/$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      print(response.statusCode);
+      return HospitalByIdModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<List<ProvinsiModel>> getProvinsi() async {
+    try {
+      final url = '$baseUrl2/provinces.json';
+      final response = await dio.get(url);
+
+      final data = response.data as List;
+      List<ProvinsiModel> dataList =
+          data.map((m) => ProvinsiModel.fromJson(m)).toList();
+      return dataList;
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<List<KabupatenKotaModel>> getKabupatenKota(int id) async {
+    try {
+      final url = '$baseUrl2/regencies/$id.json';
+      final response = await dio.get(url);
+
+      final data = response.data as List;
+      List<KabupatenKotaModel> dataList =
+          data.map((m) => KabupatenKotaModel.fromJson(m)).toList();
+      return dataList;
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<List<KecamatanModel>> getKecamatan(int id) async {
+    try {
+      final url = '$baseUrl2/districts/$id.json';
+      final response = await dio.get(url);
+
+      final data = response.data as List;
+      List<KecamatanModel> dataList =
+          data.map((m) => KecamatanModel.fromJson(m)).toList();
+      return dataList;
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<List<KelurahanModel>> getKelurahan(int id) async {
+    try {
+      final url = '$baseUrl2/villages/$id.json';
+      final response = await dio.get(url);
+
+      final data = response.data as List;
+      List<KelurahanModel> dataList =
+          data.map((m) => KelurahanModel.fromJson(m)).toList();
+      return dataList;
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
     }
   }
 }

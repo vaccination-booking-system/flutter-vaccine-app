@@ -23,11 +23,11 @@ class RegisterViewModel with ChangeNotifier {
         Fluttertoast.showToast(msg: 'NIK Invalid');
         return false;
       } else {
-        Fluttertoast.showToast(msg: 'Unknown Error');
+        Fluttertoast.showToast(msg: 'Ups, Something Went Wrong!');
         return false;
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Server Error');
+      Fluttertoast.showToast(msg: 'Server Error, Please Try Again Later');
       return false;
       // print(e);
     }

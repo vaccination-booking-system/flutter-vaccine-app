@@ -1,5 +1,4 @@
 import 'package:evizy/screen/home/home_screen.dart';
-import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
 import 'package:evizy/utils/decode/jwt_decode.dart';
 import 'package:evizy/view_model/city_view_model.dart';
@@ -11,17 +10,19 @@ import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SecondSplashScreen extends StatefulWidget {
+  const SecondSplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SecondSplashScreen> createState() => _SecondSplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SecondSplashScreenState extends State<SecondSplashScreen> {
   int? userId;
 
   Future getUserId() async {
@@ -34,32 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
     print(userId);
   }
 
-  String? _token;
-
-  Future getPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _token = prefs.getString(PreferencesKeys.token);
-    // prefs.remove(PreferencesKeys.token);
-    if (_token != null) {
-      return Navigator.pushAndRemoveUntil(
-          (context),
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-          (route) => false);
-    } else {
-      Navigator.pushAndRemoveUntil(
-          (context),
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-          (route) => false);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     getUserId().then((value) {
+      Provider.of<UserViewModel>(context, listen: false).getUser(userId!);
       Provider.of<GetFamilyMemberViewModel>(context, listen: false)
           .getFamilyMember(userId!);
-      Provider.of<UserViewModel>(context, listen: false).getUser(userId!);
       Provider.of<CityViewModel>(context, listen: false).getCity();
       Provider.of<HospitalViewModel>(context, listen: false).getHospital(1);
       Provider.of<ProvinsiViewModel>(context, listen: false).getProvinsi();
@@ -69,8 +51,11 @@ class _SplashScreenState extends State<SplashScreen> {
           .getKecamatan(1101);
       Provider.of<KelurahanViewModel>(context, listen: false)
           .getKelurahan(1101010);
+      Navigator.pushAndRemoveUntil(
+          (context),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (route) => false);
     });
-    getPrefs();
   }
 
   @override

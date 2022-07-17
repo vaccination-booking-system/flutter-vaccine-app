@@ -16,14 +16,14 @@ class LoginViewModel with ChangeNotifier {
         notifyListeners();
         return true;
       } else if (data.message == "INVALID_CREDENTIALS") {
-        Fluttertoast.showToast(msg: 'NIK Invalid');
+        Fluttertoast.showToast(msg: 'NIK atau Password salah');
         return false;
       } else {
-        Fluttertoast.showToast(msg: 'UnknownError');
+        Fluttertoast.showToast(msg: 'Ups, Something Went Wrong!');
         return false;
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Server Error');
+      Fluttertoast.showToast(msg: 'Server Error, Please Try Again Later');
       return false;
       // print(e);
     }

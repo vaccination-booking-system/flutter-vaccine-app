@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:evizy/screen/home/home_screen.dart';
+import 'package:evizy/screen/splash/splash_screen2.dart';
 import 'package:evizy/screen/streams/register_screen.dart';
 import 'package:evizy/view_model/auth_view_model.dart';
 import 'package:evizy/view_model/login_view_model.dart';
@@ -24,9 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //Untuk show dan hidden password
   bool _passwordVisible = false;
-
-  //Untuk chackbox bisa di checklist atau engaknya
-  bool isChecked = false;
 
   //Check validasi untuk password
   final RegExp _passValid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])");
@@ -193,20 +191,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           final bool isAvailable = await loginProvider.getLogin(
                               _nikController.text, _passwordController.text);
                           if (isAvailable) {
-                            if (mounted && isChecked == true) {
+                            if (mounted) {
                               authProvider.setToken(
                                   loginProvider.login.data!.accessToken!);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const HomeScreen()));
-                            } else if (mounted) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomeScreen()));
+                                          const SecondSplashScreen()));
                             }
                           }
                         }

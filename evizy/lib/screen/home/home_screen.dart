@@ -1,6 +1,16 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:evizy/screen/profile/profile_screen.dart';
+import 'package:evizy/model/api/services_api.dart';
+import 'package:evizy/screen/add%20family%20member/family_member_screen.dart';
+import 'package:evizy/screen/booking%20vaccine/booking_vaccine_screen.dart';
+import 'package:evizy/screen/profile/dashboard_screen.dart';
+import 'package:evizy/screen/tiket%20vaksin/tiket_vaksin_screen.dart';
+import 'package:evizy/utils/constant/preferences_key.dart';
+import 'package:evizy/utils/decode/jwt_decode.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int carouselIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()));
+                      builder: (context) => const DashboardScreen()));
             },
             icon: Icon(
               Icons.person_rounded,
@@ -50,7 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              ServiceApi serviceApi = ServiceApi();
+              final lisss = await serviceApi.getProvinsi();
+              print(lisss);
+            },
             icon: Icon(
               Icons.notifications_rounded,
               color: Colors.black,
@@ -65,8 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 120,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 16,
                 ),
                 Stack(
                   children: [
@@ -97,6 +112,93 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 12, 15, 12),
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      )),
+                                      minimumSize: MaterialStateProperty.all(
+                                          const Size(345, 70)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Color.fromARGB(
+                                                  255, 5, 105, 151))),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'PCR Antigen',
+                                                  style: TextStyle(
+                                                      fontSize: 24,
+                                                      color: Colors.white),
+                                                ),
+                                                VerticalDivider(),
+                                                Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      36,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      8,
+                                                  decoration: BoxDecoration(
+                                                    color: Color.fromARGB(
+                                                        255, 123, 203, 156),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                    'Negatif',
+                                                    style: TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  )),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              'Berlaku Hingga 25 Desember 2021  (16:00)',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 4),
+                                        child: Icon(
+                                            Icons.keyboard_arrow_right_rounded,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -177,33 +279,54 @@ class _HomeScreenState extends State<HomeScreen> {
                                             mainAxisSpacing: 10),
                                     itemCount: testData.length,
                                     itemBuilder: (context, index) {
-                                      return Column(
-                                        children: [
-                                          Container(
-                                            height: 64,
-                                            width: 64,
-                                            decoration: BoxDecoration(
-                                              color: gridColor[index],
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          index == 0
+                                              ? Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const BookingVaccine()))
+                                              : index == 1
+                                                  ? Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const FamilyMemberScreen()))
+                                                  : Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const TiketVaksinScreen()));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 64,
+                                              width: 64,
+                                              decoration: BoxDecoration(
+                                                color: gridColor[index],
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Container(
-                                            height: 32,
-                                            width: 72,
-                                            child: Text(
-                                              testData[index],
-                                              style: TextStyle(fontSize: 12),
-                                              textAlign: TextAlign.center,
+                                            const SizedBox(
+                                              height: 8,
                                             ),
-                                          ),
-                                        ],
+                                            Container(
+                                              height: 32,
+                                              width: 72,
+                                              child: Text(
+                                                testData[index],
+                                                style: TextStyle(fontSize: 12),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       );
                                     }),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -277,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount: testColor.length,
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

@@ -21,8 +21,12 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
           color: Colors.black,
         ),
         title: const Text(
-          'Edit Profile',
-          style: TextStyle(color: Colors.black),
+          'Riwayat Test Covid-19',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,14 +35,14 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 30,
+              height: MediaQuery.of(context).size.height / 24,
             ),
             Stack(
               children: [
                 Column(
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: MediaQuery.of(context).size.height / 26,
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height / 1.26,

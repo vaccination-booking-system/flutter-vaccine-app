@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -67,166 +68,186 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
                               topRight: Radius.circular(40))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 65,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: Text(
-                              'Nama Lengkap',
-                              style: TextStyle(fontWeight: FontWeight.w500),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 65,
                             ),
-                          ),
-                          //Form untuk nama
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24, right: 24),
-                            child: TextFormField(
-                              controller: _namaController,
-                              keyboardType: TextInputType.name,
-                              decoration: const InputDecoration(
-                                hintText: 'Nama Lengkap',
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return ("Masukkan Nama anda");
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: Text(
-                              'Nomor Induk Kependudukan',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          //Form untuk NIK
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24, right: 24),
-                            child: TextFormField(
-                              controller: _nikController,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                hintText: 'Nomor Induk Kependudukan',
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return ("Masukkan NIK anda");
-                                }
-                                if (value.length != 16) {
-                                  return ("Enter Valid NIK( 16 Character)");
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: Text(
-                              'Tanggal Lahir',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          //Form untuk nama
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24, right: 24),
-                            child: TextFormField(
-                              controller: _namaController,
-                              keyboardType: TextInputType.name,
-                              decoration: const InputDecoration(
-                                hintText: 'Tanggal Lahir',
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
+                              child: Text(
+                                'Nama Lengkap',
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: Text(
-                              'Email',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          //Form untuk NIK
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24, right: 24),
-                            child: TextFormField(
-                              controller: _nikController,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                hintText: 'Email',
+                            //Form untuk nama
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              child: TextFormField(
+                                controller: _namaController,
+                                keyboardType: TextInputType.name,
+                                decoration: const InputDecoration(
+                                  hintText: 'Nama Lengkap',
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Masukkan Nama anda");
+                                  }
+                                },
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return ("Please Enter Your Email");
-                                }
-                                if (!RegExp(
-                                        "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                    .hasMatch(value)) {
-                                  return ("Please Enter a valid email");
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 24),
-                            child: Text(
-                              'Nomor Telepon',
-                              style: TextStyle(fontWeight: FontWeight.w500),
+                            const SizedBox(
+                              height: 12,
                             ),
-                          ),
-                          //Form untuk nomor telepon
-                          Padding(
-                            padding: const EdgeInsets.only(left: 24, right: 24),
-                            child: TextFormField(
-                              controller: _nomorController,
-                              keyboardType: TextInputType.phone,
-                              decoration: const InputDecoration(
-                                hintText: 'Nomor Telepon',
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
+                              child: Text(
+                                'Nomor Induk Kependudukan',
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return ("Masukkan Nomor Telepon anda");
-                                }
-                                if (value.length <= 11) {
-                                  return ("Masukkan Nomor Telepon yang Valid");
-                                }
-                              },
                             ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 5.7,
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all(
-                                      const Size(345, 40)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color.fromARGB(255, 10, 108, 157))),
-                              child: const Text('Simpan'),
+                            //Form untuk NIK
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              child: TextFormField(
+                                controller: _nikController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  hintText: 'Nomor Induk Kependudukan',
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Masukkan NIK anda");
+                                  }
+                                  if (value.length != 16) {
+                                    return ("Enter Valid NIK( 16 Character)");
+                                  }
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
+                              child: Text(
+                                'Tanggal Lahir',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            //Form untuk nama
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              child: TextFormField(
+                                controller: _tanggalController,
+                                keyboardType: TextInputType.name,
+                                decoration: const InputDecoration(
+                                  hintText: 'Tanggal Lahir',
+                                ),
+                                onTap: () async {
+                                  DateTime? date;
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime(2100));
+                                  _tanggalController.text =
+                                      DateFormat('yyyy-MM-dd').format(date!);
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
+                              child: Text(
+                                'Email',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            //Form untuk NIK
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              child: TextFormField(
+                                controller: _nikController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  hintText: 'Email',
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Please Enter Your Email");
+                                  }
+                                  if (!RegExp(
+                                          "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                      .hasMatch(value)) {
+                                    return ("Please Enter a valid email");
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 24),
+                              child: Text(
+                                'Nomor Telepon',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            //Form untuk nomor telepon
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              child: TextFormField(
+                                controller: _nomorController,
+                                keyboardType: TextInputType.phone,
+                                decoration: const InputDecoration(
+                                  hintText: 'Nomor Telepon',
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Masukkan Nomor Telepon anda");
+                                  }
+                                  if (value.length <= 11) {
+                                    return ("Masukkan Nomor Telepon yang Valid");
+                                  }
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 5.7,
+                            ),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                    minimumSize: MaterialStateProperty.all(
+                                        const Size(345, 40)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 10, 108, 157))),
+                                child: const Text('Simpan'),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

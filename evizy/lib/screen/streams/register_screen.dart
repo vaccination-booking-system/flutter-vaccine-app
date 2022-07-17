@@ -93,7 +93,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             hintText: 'Nama Lengkap',
                           ),
                           validator: (value) {
-                            final RegExp nameRegExp = RegExp('[a-zA-Z]');
+                            final RegExp nameRegExp = RegExp(
+                                r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
                             if (value!.isEmpty) {
                               return ("Masukkan Nama anda");
                             }
