@@ -1,3 +1,4 @@
+import 'package:evizy/model/vaccine%20session/vaccination_session_by_id_mode.dart';
 import 'package:evizy/screen/home/home_screen.dart';
 import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
@@ -11,6 +12,8 @@ import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
 import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_by_id_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final JwtDecode jwtDecode = JwtDecode();
     final String data = prefs.get(PreferencesKeys.token).toString();
+    if (data.isEmpty) {
+      getPrefs();
+    }
     print(data);
     final datas = jwtDecode.parseJwt(data);
     userId = datas.values.elementAt(1);
@@ -72,7 +78,11 @@ class _SplashScreenState extends State<SplashScreen> {
       Provider.of<KelurahanViewModel>(context, listen: false)
           .getKelurahan(1101010);
       Provider.of<GetTiketVaksinViewModel>(context, listen: false)
-          .getTiketVaksin();
+          .getTiketVaksin(userId!);
+      Provider.of<VaccinationSessionViewModel>(context, listen: false)
+          .getVaccinationSession(2);
+      Provider.of<VaccinationSessionByIdViewModel>(context, listen: false)
+          .getVaccinationSession(1);
     });
     getPrefs();
   }

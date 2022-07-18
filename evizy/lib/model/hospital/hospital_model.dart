@@ -29,64 +29,62 @@ class HospitalModel {
 
 class Data {
   int? id;
-  HealthFacility? healthFacility;
-  HealthFacility? vaccine;
-  String? scheduleDate;
-  String? scheduleTimeStart;
-  String? scheduleTimeEnd;
-  int? quantity;
-  int? booked;
+  String? name;
+  Admin? admin;
+  City? city;
 
-  Data(
-      {this.id,
-      this.healthFacility,
-      this.vaccine,
-      this.scheduleDate,
-      this.scheduleTimeStart,
-      this.scheduleTimeEnd,
-      this.quantity,
-      this.booked});
+  Data({this.id, this.name, this.admin, this.city});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    healthFacility = json['health_facility'] != null
-        ? HealthFacility.fromJson(json['health_facility'])
-        : null;
-    vaccine = json['vaccine'] != null
-        ? HealthFacility.fromJson(json['vaccine'])
-        : null;
-    scheduleDate = json['schedule_date'];
-    scheduleTimeStart = json['schedule_time_start'];
-    scheduleTimeEnd = json['schedule_time_end'];
-    quantity = json['quantity'];
-    booked = json['booked'];
+    name = json['name'];
+    admin = json['admin'] != null ? Admin.fromJson(json['admin']) : null;
+    city = json['city'] != null ? City.fromJson(json['city']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    if (healthFacility != null) {
-      data['health_facility'] = healthFacility!.toJson();
+    data['name'] = name;
+    if (admin != null) {
+      data['admin'] = admin!.toJson();
     }
-    if (vaccine != null) {
-      data['vaccine'] = vaccine!.toJson();
+    if (city != null) {
+      data['city'] = city!.toJson();
     }
-    data['schedule_date'] = scheduleDate;
-    data['schedule_time_start'] = scheduleTimeStart;
-    data['schedule_time_end'] = scheduleTimeEnd;
-    data['quantity'] = quantity;
-    data['booked'] = booked;
     return data;
   }
 }
 
-class HealthFacility {
+class Admin {
+  int? id;
+  String? name;
+  bool? superAdmin;
+
+  Admin({this.id, this.name, this.superAdmin});
+
+  Admin.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    superAdmin = json['super_admin'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['super_admin'] = superAdmin;
+    return data;
+  }
+}
+
+class City {
   int? id;
   String? name;
 
-  HealthFacility({this.id, this.name});
+  City({this.id, this.name});
 
-  HealthFacility.fromJson(Map<String, dynamic> json) {
+  City.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

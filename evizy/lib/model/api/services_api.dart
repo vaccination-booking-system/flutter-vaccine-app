@@ -10,11 +10,18 @@ import 'package:evizy/model/hospital/hospital_by_id.dart';
 import 'package:evizy/model/hospital/hospital_model.dart';
 import 'package:evizy/model/tiket%20vaksin/tiket_vaksin_model.dart';
 import 'package:evizy/model/user/user_model.dart';
+import 'package:evizy/model/vaccine%20session/vaccination_session_by_id_mode.dart';
+import 'package:evizy/model/vaccine%20session/vaccination_session_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kabupaten_kota_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kecamatan_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kelurahan.dart';
 import 'package:evizy/model/wilayah%20indonesia/provinsi_model.dart';
+import 'package:evizy/screen/splash/splash_screen.dart';
+import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceApi {
@@ -39,10 +46,20 @@ class ServiceApi {
       // Do something with response error
       if (e.response!.statusCode == 401) {
         final pref = await SharedPreferences.getInstance();
-        pref.clear();
+        pref.remove(PreferencesKeys.token);
+        // Navigator.pushAndRemoveUntil(
+        //     (context),
+        //     MaterialPageRoute(builder: (context) => const LoginScreen()),
+        //     (route) => false);
+        Fluttertoast.showToast(msg: 'Token Expired');
       } else if (e.response!.statusCode == 403) {
         final pref = await SharedPreferences.getInstance();
-        pref.clear();
+        pref.remove(PreferencesKeys.token);
+        // Navigator.pushAndRemoveUntil(
+        //     (context),
+        //     MaterialPageRoute(builder: (context) => const LoginScreen()),
+        //     (route) => false);
+        Fluttertoast.showToast(msg: 'Token Expired');
       }
       return handler.next(e); //continue
       // If you want to resolve the request with some custom data，
@@ -247,7 +264,7 @@ class ServiceApi {
       final token = prefs.get(PreferencesKeys.token).toString();
       dio.options.headers["authorization"] = "Bearer $token";
 
-      final url = '$baseUrl/vaccination-session?city_id=$id';
+      final url = '$baseUrl/health-facilities?city_id=$id';
       final response = await dio.get(url);
 
       final data = response.data;
@@ -269,6 +286,40 @@ class ServiceApi {
 
       final data = response.data;
       return HospitalByIdModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<VaccinationSessionModel> getVaccineSession(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/vaccination-session?health_facility_id=$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return VaccinationSessionModel.fromJson(data);
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+      rethrow;
+    }
+  }
+
+  Future<VaccinationSessionByIdModel> getVaccineSessionById(int id) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.get(PreferencesKeys.token).toString();
+      dio.options.headers["authorization"] = "Bearer $token";
+
+      final url = '$baseUrl/vaccination-session/$id';
+      final response = await dio.get(url);
+
+      final data = response.data;
+      return VaccinationSessionByIdModel.fromJson(data);
     } on DioError catch (e) {
       print(e.response!.statusCode);
       rethrow;
@@ -383,13 +434,13 @@ class ServiceApi {
     }
   }
 
-  Future<TiketVaksineModel> getTiketVaksin() async {
+  Future<TiketVaksineModel> getTiketVaksin(int id) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final token = prefs.get(PreferencesKeys.token).toString();
       dio.options.headers["authorization"] = "Bearer $token";
 
-      final url = '$baseUrl/vaccination-pass';
+      final url = '$baseUrl/vaccination-pass?user_id=$id';
       final response = await dio.get(url);
 
       final data = response.data;

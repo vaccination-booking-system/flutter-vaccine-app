@@ -1,5 +1,7 @@
+import 'package:evizy/screen/on%20boarding/on_boarding_screen.dart';
 import 'package:evizy/screen/splash/splash_screen.dart';
 import 'package:evizy/utils/constant/main_navigator_key.dart';
+import 'package:evizy/utils/constant/preferences_key.dart';
 import 'package:evizy/view_model/add_family_member_view_model.dart';
 import 'package:evizy/view_model/auth_view_model.dart';
 import 'package:evizy/view_model/booking_vaccine_view_model.dart';
@@ -17,10 +19,18 @@ import 'package:evizy/view_model/register_view_model.dart';
 import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/update_family_member_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_by_id_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final onBoarding = prefs.getBool(PreferencesKeys.onBoarding) ?? false;
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -74,11 +84,17 @@ void main() {
       ChangeNotifierProvider(
         create: (_) => GetTiketVaksinViewModel(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => VaccinationSessionViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => VaccinationSessionByIdViewModel(),
+      ),
     ],
     child: MaterialApp(
       navigatorKey: MainNavigasiKey.mainNavigatorKey,
       title: 'Evizy',
-      home: const SplashScreen(),
+      home: onBoarding ? const SplashScreen() : const OnboardingScreen(),
     ),
   ));
 }

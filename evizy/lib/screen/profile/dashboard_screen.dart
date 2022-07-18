@@ -257,6 +257,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.remove(PreferencesKeys.token);
+                  prefs.setBool(PreferencesKeys.onBoarding, false);
                   Navigator.pushAndRemoveUntil(
                       (context),
                       MaterialPageRoute(

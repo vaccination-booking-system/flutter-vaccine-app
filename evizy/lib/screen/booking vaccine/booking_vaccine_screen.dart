@@ -7,7 +7,6 @@ class BookingVaccine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -21,7 +20,7 @@ class BookingVaccine extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 10, 108, 157),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -29,8 +28,12 @@ class BookingVaccine extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 406,
+              height: 320,
               decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Component7.png'),
+                  fit: BoxFit.fill,
+                ),
                 color: Color.fromARGB(255, 10, 108, 157),
               ),
             ),

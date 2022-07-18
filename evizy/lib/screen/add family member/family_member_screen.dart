@@ -12,7 +12,6 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -26,16 +25,20 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 10, 108, 157),
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 2,
+              height: 320,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Component8.png'),
+                  fit: BoxFit.contain,
+                ),
                 color: Color.fromARGB(255, 10, 108, 157),
               ),
             ),

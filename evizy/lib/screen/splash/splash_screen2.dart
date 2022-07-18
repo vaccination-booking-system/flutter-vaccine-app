@@ -10,6 +10,8 @@ import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
 import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_by_id_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,7 +54,11 @@ class _SecondSplashScreenState extends State<SecondSplashScreen> {
       Provider.of<KelurahanViewModel>(context, listen: false)
           .getKelurahan(1101010);
       Provider.of<GetTiketVaksinViewModel>(context, listen: false)
-          .getTiketVaksin();
+          .getTiketVaksin(userId!);
+      Provider.of<VaccinationSessionViewModel>(context, listen: false)
+          .getVaccinationSession(2);
+      Provider.of<VaccinationSessionByIdViewModel>(context, listen: false)
+          .getVaccinationSession(1);
       Navigator.pushAndRemoveUntil(
           (context),
           MaterialPageRoute(builder: (context) => const HomeScreen()),

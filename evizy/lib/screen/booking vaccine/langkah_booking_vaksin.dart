@@ -1,4 +1,5 @@
 import 'package:evizy/model/hospital/hospital_by_id.dart';
+import 'package:evizy/model/vaccine%20session/vaccination_session_by_id_mode.dart';
 import 'package:evizy/screen/booking%20vaccine/tinjau_booking_vaccine_screen.dart';
 import 'package:evizy/view_model/city_view_model.dart';
 import 'package:evizy/view_model/get_hospital_by_id_view_model.dart';
@@ -8,6 +9,8 @@ import 'package:evizy/view_model/kecamatan_view_model.dart';
 import 'package:evizy/view_model/kelurahan_view_model.dart';
 import 'package:evizy/view_model/provinsi_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_by_id_view_model.dart';
+import 'package:evizy/view_model/vaccination_session_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +63,26 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
     _rwKtpController.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    dropdownJenisKelamin =
+        Provider.of<UserViewModel>(context, listen: false).user.data!.gender!;
+    _namaController.text =
+        Provider.of<UserViewModel>(context, listen: false).user.data!.name!;
+    _nikController.text =
+        Provider.of<UserViewModel>(context, listen: false).user.data!.nik!;
+    _tanggalLahirController.text =
+        Provider.of<UserViewModel>(context, listen: false)
+            .user
+            .data!
+            .dateOfBirth!;
+    _nomorController.text = Provider.of<UserViewModel>(context, listen: false)
+        .user
+        .data!
+        .phoneNumber!;
+  }
+
   bool isChecked = false;
 
   YesOrNo? _character;
@@ -69,6 +92,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
   String dropdownKategori = 'Pilih Kategori Anda';
   String dropdownKota = 'Pilih Kota';
   String dropdownVaskes = 'Pilih Faskes';
+  String dropdownSession = 'Pilih Sesi';
   String dropdownProvinsi = 'Pilih Provinsi';
   String dropdownKabupatenKota = 'Pilih Kabupaten';
   String dropdownKecamatan = 'Pilih Kecamatan';
@@ -78,7 +102,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
   String dropdownKecamatanKtp = 'Pilih Kecamatan Domisili';
   String dropdownKelurahanKtp = 'Pilih Kelurahan Domisili';
 
-  HospitalByIdModel? sesiHospital;
+  VaccinationSessionByIdModel? sesiHospital;
 
   List<DropdownMenuItem<String>> get dropdownItemsCity {
     List<DropdownMenuItem<String>> menuItems = [];
@@ -95,13 +119,42 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
   List<DropdownMenuItem<String>> get dropdownItemsFaskes {
     List<DropdownMenuItem<String>> menuItems = [];
     final hospitalProvider = Provider.of<HospitalViewModel>(context);
-    for (int i = 0; i < hospitalProvider.hospital.data!.length; i++) {
-      final data = DropdownMenuItem(
-          value: hospitalProvider.hospital.data![i].healthFacility!.name!,
-          child:
-              Text(hospitalProvider.hospital.data![i].healthFacility!.name!));
+    if (hospitalProvider.hospital.data!.isNotEmpty) {
+      for (int i = 0; i < hospitalProvider.hospital.data!.length; i++) {
+        final data = DropdownMenuItem(
+            value: hospitalProvider.hospital.data![i].name,
+            child: Text(hospitalProvider.hospital.data![i].name!));
+        menuItems.add(data);
+      }
+    } else {
+      const data =
+          DropdownMenuItem(value: 'Pilih Faskes', child: Text('Pilih Faskes'));
       menuItems.add(data);
     }
+
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get dropdownItemsSession {
+    List<DropdownMenuItem<String>> menuItems = [];
+    final sessionProvider = Provider.of<VaccinationSessionViewModel>(context);
+    if (sessionProvider.vaccinationSession.data!.isNotEmpty) {
+      for (int i = 0;
+          i < sessionProvider.vaccinationSession.data!.length;
+          i++) {
+        final data = DropdownMenuItem(
+            value:
+                '${sessionProvider.vaccinationSession.data![i].scheduleDate}/${sessionProvider.vaccinationSession.data![i].scheduleTimeStart}-${sessionProvider.vaccinationSession.data![i].scheduleTimeEnd}',
+            child: Text(
+                '${sessionProvider.vaccinationSession.data![i].scheduleDate}/${sessionProvider.vaccinationSession.data![i].scheduleTimeStart}-${sessionProvider.vaccinationSession.data![i].scheduleTimeEnd}'));
+        menuItems.add(data);
+      }
+    } else {
+      const data =
+          DropdownMenuItem(value: 'Pilih Sesi', child: Text('Pilih Sesi'));
+      menuItems.add(data);
+    }
+
     return menuItems;
   }
 
@@ -161,9 +214,9 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
     final kabupatenProvider = Provider.of<KabupatenKotaViewModel>(context);
     final kecamatanProvider = Provider.of<KecamatanViewModel>(context);
     final kelurahanProvider = Provider.of<KelurahanViewModel>(context);
-    final userProvider = Provider.of<UserViewModel>(context);
-    GetHospitalByIDViewModel? sesiProvider =
-        Provider.of<GetHospitalByIDViewModel>(context);
+    final sessionProvider = Provider.of<VaccinationSessionViewModel>(context);
+    VaccinationSessionByIdViewModel? sesiProvider =
+        Provider.of<VaccinationSessionByIdViewModel>(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
@@ -222,39 +275,44 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       dropdownKecamatanKtp != 'Pilih Kecamatan Domisili' &&
                       dropdownKelurahanKtp != 'Pilih Kelurahan Domisili' &&
                       sesiHospital != null &&
-                      statusHamil != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TinjauBookingVaksinScreen(
-                                  jalan: _jalanController.text,
-                                  jalanKtp: _jalanKtpController.text,
-                                  jenisKelamin: dropdownJenisKelamin,
-                                  kabupaten: dropdownKabupatenKota,
-                                  kabupatenKtp: dropdownKabupatenKotaKtp,
-                                  kategori: dropdownKategori,
-                                  kecamatan: dropdownKecamatan,
-                                  kecamatanKtp: dropdownKecamatanKtp,
-                                  kelurahan: dropdownKelurahan,
-                                  kelurahanKtp: dropdownKelurahanKtp,
-                                  nama: _namaController.text,
-                                  nik: _nikController.text,
-                                  phoneNumber: _nomorController.text,
-                                  provinsi: dropdownProvinsi,
-                                  provinsiKtp: dropdownProvinsiKtp,
-                                  rt: _rtController.text,
-                                  rtKtp: _rtKtpController.text,
-                                  rw: _rwController.text,
-                                  rwKtp: _rwKtpController.text,
-                                  statusHamil: statusHamil!,
-                                  tanggalLahir: _tanggalLahirController.text,
-                                  tanggalVaksin:
-                                      sesiHospital!.data!.scheduleDate!,
-                                  tempatVaksin: dropdownVaskes,
-                                  waktuVaksin:
-                                      '${sesiHospital!.data!.scheduleTimeStart!}-${sesiHospital!.data!.scheduleTimeEnd!}',
-                                  faskesId: sesiHospital!.data!.id!,
-                                )));
+                      statusHamil != null &&
+                      dropdownSession != 'Pilih Sesi') {
+                    if (sesiHospital!.data!.quantity! -
+                            sesiHospital!.data!.booked! !=
+                        0) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TinjauBookingVaksinScreen(
+                                    jalan: _jalanController.text,
+                                    jalanKtp: _jalanKtpController.text,
+                                    jenisKelamin: dropdownJenisKelamin,
+                                    kabupaten: dropdownKabupatenKota,
+                                    kabupatenKtp: dropdownKabupatenKotaKtp,
+                                    kategori: dropdownKategori,
+                                    kecamatan: dropdownKecamatan,
+                                    kecamatanKtp: dropdownKecamatanKtp,
+                                    kelurahan: dropdownKelurahan,
+                                    kelurahanKtp: dropdownKelurahanKtp,
+                                    nama: _namaController.text,
+                                    nik: _nikController.text,
+                                    phoneNumber: _nomorController.text,
+                                    provinsi: dropdownProvinsi,
+                                    provinsiKtp: dropdownProvinsiKtp,
+                                    rt: _rtController.text,
+                                    rtKtp: _rtKtpController.text,
+                                    rw: _rwController.text,
+                                    rwKtp: _rwKtpController.text,
+                                    statusHamil: statusHamil!,
+                                    tanggalLahir: _tanggalLahirController.text,
+                                    tanggalVaksin:
+                                        sesiHospital!.data!.scheduleDate!,
+                                    tempatVaksin: dropdownVaskes,
+                                    waktuVaksin:
+                                        '${sesiHospital!.data!.scheduleTimeStart!}-${sesiHospital!.data!.scheduleTimeEnd!}',
+                                    faskesId: sesiHospital!.data!.id!,
+                                  )));
+                    }
                   }
                 }
               }
@@ -466,7 +524,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       const Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
-                          'Cari Kota Faskes',
+                          'Cari Kota untuk vaksinasi',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -519,7 +577,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       const Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
-                          'Cari Lokasi Vaksinasi',
+                          'Cari Faskes',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -547,17 +605,10 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                               for (int i = 0;
                                   i < hospitalProvider.hospital.data!.length;
                                   i++) {
-                                if (hospitalProvider.hospital.data![i]
-                                        .healthFacility!.name ==
+                                if (hospitalProvider.hospital.data![i].name ==
                                     dropdownVaskes) {
-                                  sesiProvider
-                                      .getHospital(hospitalProvider
-                                          .hospital.data![i].id!)
-                                      .then((value) {
-                                    print(sesiProvider.hospital.message);
-                                    sesiHospital = sesiProvider.hospital;
-                                  });
-
+                                  sessionProvider.getVaccinationSession(
+                                      hospitalProvider.hospital.data![i].id!);
                                   break;
                                 }
                               }
@@ -580,6 +631,44 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16),
+                        child: DropdownButton<String>(
+                          hint: Text(dropdownSession),
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: Colors.black,
+                          ),
+                          dropdownColor: Colors.white,
+                          elevation: 16,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownSession = newValue!;
+                              for (int i = 0;
+                                  i < hospitalProvider.hospital.data!.length;
+                                  i++) {
+                                if ('${sessionProvider.vaccinationSession.data![i].scheduleDate}/${sessionProvider.vaccinationSession.data![i].scheduleTimeStart}-${sessionProvider.vaccinationSession.data![i].scheduleTimeEnd}' ==
+                                    dropdownSession) {
+                                  sesiProvider
+                                      .getVaccinationSession(sessionProvider
+                                          .vaccinationSession.data![i].id!)
+                                      .then((value) {
+                                    sesiHospital =
+                                        sesiProvider.vaccinationSession;
+                                  });
+
+                                  break;
+                                }
+                              }
+                            });
+                          },
+                          items: dropdownItemsSession,
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
@@ -588,30 +677,6 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Lokasi',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                sesiHospital == null
-                                    ? const Center()
-                                    : Text(
-                                        sesiHospital!
-                                            .data!.healthFacility!.name!,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                              ],
-                            ),
                             const SizedBox(
                               height: 8,
                             ),
@@ -630,58 +695,6 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                     ? const Center()
                                     : Text(
                                         sesiHospital!.data!.vaccine!.name!,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Tanggal Vaksin',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                sesiHospital == null
-                                    ? const Center()
-                                    : Text(
-                                        sesiHospital!.data!.scheduleDate!,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Waktu Vaksin',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                sesiHospital == null
-                                    ? const Center()
-                                    : Text(
-                                        '${sesiHospital!.data!.scheduleTimeStart!}-${sesiHospital!.data!.scheduleTimeEnd!}',
                                         style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
@@ -756,8 +769,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _namaController = TextEditingController(
-                              text: userProvider.user.data!.name),
+                          controller: _namaController,
                           keyboardType: TextInputType.name,
                           decoration: const InputDecoration(
                             hintText: 'Masukkan Nama Lengkap',
@@ -785,8 +797,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _nikController = TextEditingController(
-                              text: userProvider.user.data!.nik),
+                          controller: _nikController,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             String pattern = r'(^(?:[+0]9)?[0-9]{16}$)';
@@ -815,8 +826,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: DropdownButton<String>(
-                          hint: Text(dropdownJenisKelamin =
-                              userProvider.user.data!.name!),
+                          hint: Text(dropdownJenisKelamin),
                           icon: const Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: Colors.black,
@@ -855,9 +865,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _tanggalLahirController =
-                              TextEditingController(
-                                  text: userProvider.user.data!.dateOfBirth),
+                          controller: _tanggalLahirController,
                           decoration: const InputDecoration(
                             hintText: 'Tanggal Lahir',
                           ),
@@ -895,8 +903,7 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
                         child: TextFormField(
-                          controller: _nomorController = TextEditingController(
-                              text: userProvider.user.data!.phoneNumber),
+                          controller: _nomorController,
                           keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             hintText: 'Nomor Telepon',

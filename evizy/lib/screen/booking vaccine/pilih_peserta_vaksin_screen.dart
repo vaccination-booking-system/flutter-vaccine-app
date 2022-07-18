@@ -33,58 +33,72 @@ class _PilihPesertaVaksinScreenState extends State<PilihPesertaVaksinScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            const SizedBox(
-              height: 210,
-            ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.658,
+              height: 381,
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40)),
-                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Component6.png'),
+                  fit: BoxFit.contain,
+                ),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 24,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 210,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 1.658,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40)),
+                    color: Colors.white,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const DaftarVaksinScreen()));
-                    },
-                    child: Container(
-                      height: 56,
-                      width: 345,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16)),
-                          color: Colors.transparent),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Text(userProvider.user.data!.name!),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: Icon(Icons.keyboard_arrow_down_rounded),
-                          ),
-                        ],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 24,
                       ),
-                    ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DaftarVaksinScreen()));
+                        },
+                        child: Container(
+                          height: 56,
+                          width: 345,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.5),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              color: Colors.transparent),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Text(userProvider.user.data!.name!),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 16),
+                                child: Icon(Icons.keyboard_arrow_down_rounded),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

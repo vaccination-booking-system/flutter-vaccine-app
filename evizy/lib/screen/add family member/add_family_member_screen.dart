@@ -40,144 +40,160 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            const SizedBox(
-              height: 150,
-            ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.475,
+              height: 320,
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
-                  color: Colors.white),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProfileScreen()));
-                      },
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          )),
-                          minimumSize:
-                              MaterialStateProperty.all(const Size(345, 91)),
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 5, 105, 151))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Profil Anda',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  userProvider.user.data!.name!,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                const Text(
-                                  'Akun Anda',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 4),
-                            child: Icon(Icons.keyboard_arrow_right_rounded,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 36,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 31),
-                    child: Text(
-                      'Profil Anggota',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  familyProvider.familyMember.data!.isEmpty
-                      ? const Center()
-                      : Flexible(
-                          child: _listFamilyMaker(
-                              familyProvider, deleteFamilyProvider)),
-                  const SizedBox(
-                    height: 29,
-                  ),
-                  Center(
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement<void, void>(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  const FormAddFamilyMember(),
-                            ),
-                          );
-                        },
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            )),
-                            minimumSize:
-                                MaterialStateProperty.all(const Size(175, 49)),
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color.fromARGB(255, 5, 105, 151))),
-                        child: const Text(
-                          '+ Tambah Anggota',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500),
-                        )),
-                  )
-                ],
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Components7.png'),
+                  fit: BoxFit.contain,
+                ),
               ),
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 150,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 1.475,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                      color: Colors.white),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ProfileScreen()));
+                          },
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              )),
+                              minimumSize: MaterialStateProperty.all(
+                                  const Size(345, 91)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 5, 105, 151))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Profil Anda',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      userProvider.user.data!.name!,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    const Text(
+                                      'Akun Anda',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 4),
+                                child: Icon(Icons.keyboard_arrow_right_rounded,
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 36,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 31),
+                        child: Text(
+                          'Profil Anggota',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      familyProvider.familyMember.data!.isEmpty
+                          ? const Center()
+                          : Flexible(
+                              child: _listFamilyMaker(
+                                  familyProvider, deleteFamilyProvider)),
+                      const SizedBox(
+                        height: 29,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement<void, void>(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const FormAddFamilyMember(),
+                                ),
+                              );
+                            },
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                )),
+                                minimumSize: MaterialStateProperty.all(
+                                    const Size(175, 49)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromARGB(255, 5, 105, 151))),
+                            child: const Text(
+                              '+ Tambah Anggota',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500),
+                            )),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

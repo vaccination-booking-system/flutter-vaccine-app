@@ -8,9 +8,9 @@ class GetTiketVaksinViewModel with ChangeNotifier {
   TiketVaksineModel get tiketVaksin => _tiketVaksin;
   final ServiceApi serviceApi = ServiceApi();
 
-  Future getTiketVaksin() async {
+  Future getTiketVaksin(int id) async {
     try {
-      final data = await serviceApi.getTiketVaksin();
+      final data = await serviceApi.getTiketVaksin(id);
       _tiketVaksin = data;
       notifyListeners();
     } catch (e) {

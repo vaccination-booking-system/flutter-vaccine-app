@@ -55,11 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         actions: [
           IconButton(
-            onPressed: () async {
-              ServiceApi serviceApi = ServiceApi();
-              final lisss = await serviceApi.getProvinsi();
-              print(lisss);
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.notifications_rounded,
               color: Colors.black,
@@ -263,62 +259,130 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 12,
                               ),
                               Expanded(
-                                child: GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            crossAxisSpacing: 0,
-                                            mainAxisSpacing: 10),
-                                    itemCount: testData.length,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          index == 0
-                                              ? Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const BookingVaccine()))
-                                              : index == 1
-                                                  ? Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const FamilyMemberScreen()))
-                                                  : Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const TiketVaksinScreen()));
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              height: 64,
-                                              width: 64,
-                                              decoration: BoxDecoration(
-                                                color: gridColor[index],
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                child: GridView.count(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 10,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const BookingVaccine()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 64,
+                                            width: 64,
+                                            decoration: BoxDecoration(
+                                              color: gridColor[0],
+                                              image: const DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/TheLifesaversVaccine.png'),
                                               ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
                                             ),
-                                            const SizedBox(
-                                              height: 8,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 32,
+                                            width: 72,
+                                            child: Text(
+                                              testData[0],
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            Container(
-                                              height: 32,
-                                              width: 72,
-                                              child: Text(
-                                                testData[index],
-                                                style: const TextStyle(
-                                                    fontSize: 12),
-                                                textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const FamilyMemberScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 64,
+                                            width: 64,
+                                            decoration: BoxDecoration(
+                                              color: gridColor[1],
+                                              image: const DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/+image.png'),
                                               ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 32,
+                                            width: 72,
+                                            child: Text(
+                                              testData[1],
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const TiketVaksinScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 64,
+                                            width: 64,
+                                            decoration: BoxDecoration(
+                                              color: gridColor[2],
+                                              image: const DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/CoronaVirus.png'),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 32,
+                                            width: 72,
+                                            child: Text(
+                                              testData[2],
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
