@@ -409,10 +409,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Container(
                                     height: 171,
                                     width: 349,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(17)),
-                                      color: testColor[index],
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(17)),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/landing.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      color: Color.fromARGB(255, 5, 105, 151),
                                     ),
                                   );
                                 },
@@ -424,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   enableInfiniteScroll: true,
                                   reverse: false,
                                   autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 3),
+                                  autoPlayInterval: const Duration(seconds: 10),
                                   autoPlayAnimationDuration:
                                       const Duration(milliseconds: 800),
                                   autoPlayCurve: Curves.fastOutSlowIn,

@@ -16,12 +16,12 @@ class _FAQScreenState extends State<FAQScreen> {
         headerValue: 'Menggunakan Masker Dengan Tepat',
         isExpanded: true),
     ExpansionPanelModel(
-        expandedValue: 'No Content',
-        headerValue: 'Kapan saya perlu melakukan test ?'),
+        expandedValue:
+            '1. Cuci Tangan, lakukan setiap sebelum dan sesudah melakukan aktivitas.\n2. Pakai Masker,Saat pandemi mulai melanda dunia, Organisasi Kesehatan Dunia (WHO) menyebutkan bahwa penggunaan masker hanya dilakukan untuk orang-orang yang terserang penyakit, bukan orang yang sehat.\n3. Menjaga Jarak, Protokol kesehatan 5 M selanjutnya adalah menjaga jarak saat sedang beraktivitas di luar ruangan.\n4. Menjauhi Kerumunan, Selain tiga hal di atas, menjauhi kerumunan juga merupakan protokol kesehatan yang harus dilakukan.\n5. Mengurangi Mobilitas, Virus penyebab corona bisa berada di mana saja. Jadi, semakin banyak waktu yang kamu habiskan di luar rumah, maka semakin tinggi pula risiko tubuh terpapar virus jahat ini.',
+        headerValue: 'Protokol Kesehatan'),
     ExpansionPanelModel(
-        expandedValue: 'No Content', headerValue: 'Protokol Kesehatan'),
-    ExpansionPanelModel(
-        expandedValue: 'No Content',
+        expandedValue:
+            '1. Hindari penggunaan transportasi publik sebisa mungkin\n2. Hindari kunjungan ke rumah teman/kerabat, terutama kelompok usia tua\n3. Kurangi pergi keluar rumah\n4. Jaga jarak 2 eter dari orang lain jika di tempat umum\n5. Tidak pergi liburan keluar kota/negeri',
         headerValue: 'Bagaimana aturan jaga jarak ?'),
   ];
 
@@ -51,7 +51,6 @@ class _FAQScreenState extends State<FAQScreen> {
               height: MediaQuery.of(context).size.height / 25,
             ),
             Container(
-              height: MediaQuery.of(context).size.height / 1.213,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                   color: Colors.white,

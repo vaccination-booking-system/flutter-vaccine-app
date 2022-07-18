@@ -253,16 +253,92 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 height: 24,
               ),
               GestureDetector(
-                onTap: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove(PreferencesKeys.token);
-                  prefs.setBool(PreferencesKeys.onBoarding, false);
-                  Navigator.pushAndRemoveUntil(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                      (route) => false);
+                onTap: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 208,
+                        color: const Color.fromARGB(255, 237, 245, 251),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const Text(
+                                'Anda Yakin Ingin Keluar ?',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                    minimumSize: MaterialStateProperty.all(
+                                        const Size(345, 40)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        const Color.fromARGB(
+                                            255, 10, 108, 157))),
+                                child: const Text(
+                                  'Keluar',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.remove(PreferencesKeys.token);
+                                  prefs.setBool(
+                                      PreferencesKeys.onBoarding, false);
+                                  Navigator.pushAndRemoveUntil(
+                                      (context),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen()),
+                                      (route) => false);
+                                },
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                    minimumSize: MaterialStateProperty.all(
+                                        const Size(345, 40)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        const Color.fromARGB(
+                                            255, 237, 245, 251))),
+                                child: const Text(
+                                  'Batal',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
                 child: Container(
                   height: 56,

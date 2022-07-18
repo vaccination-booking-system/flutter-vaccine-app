@@ -1,3 +1,4 @@
+import 'package:evizy/screen/profile/ganti_password_screen.dart';
 import 'package:evizy/screen/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -73,17 +74,26 @@ class AccountScreen extends StatelessWidget {
                           const Divider(
                             thickness: 0.5,
                           ),
-                          Container(
-                            height: 37,
-                            width: 345,
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const GantiPasswordScreen()));
+                            },
+                            child: Container(
+                              height: 37,
+                              width: 345,
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: const Text('Kata Sandi',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  )),
                             ),
-                            child: const Text('Kata Sandi',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                )),
                           ),
                         ],
                       ),

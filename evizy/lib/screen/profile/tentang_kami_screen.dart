@@ -16,11 +16,9 @@ class _TentangKamiScreenState extends State<TentangKamiScreen> {
         headerValue: 'Deskripsi Aplikasi',
         isExpanded: true),
     ExpansionPanelModel(
-        expandedValue: 'No Content', headerValue: 'Cara Kerja Aplikasi'),
+        expandedValue: 'Evizy@gmail.com', headerValue: 'Kontak Kami'),
     ExpansionPanelModel(
-        expandedValue: 'No Content', headerValue: 'Kontak Kami'),
-    ExpansionPanelModel(
-        expandedValue: 'No Content', headerValue: 'Versi Aplikasi'),
+        expandedValue: 'V 1.0.0', headerValue: 'Versi Aplikasi'),
   ];
 
   @override
