@@ -290,7 +290,7 @@ class _TinjauBookingVaksinScreenState extends State<TinjauBookingVaksinScreen> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width / 2,
                       child: Text(
                         widget.jalan,
@@ -319,7 +319,7 @@ class _TinjauBookingVaksinScreenState extends State<TinjauBookingVaksinScreen> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width / 2,
                       child: Text(
                         widget.jalanKtp,

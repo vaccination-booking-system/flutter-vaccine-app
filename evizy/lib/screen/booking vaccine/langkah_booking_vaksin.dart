@@ -1,8 +1,6 @@
-import 'package:evizy/model/hospital/hospital_by_id.dart';
 import 'package:evizy/model/vaccine%20session/vaccination_session_by_id_mode.dart';
 import 'package:evizy/screen/booking%20vaccine/tinjau_booking_vaccine_screen.dart';
 import 'package:evizy/view_model/city_view_model.dart';
-import 'package:evizy/view_model/get_hospital_by_id_view_model.dart';
 import 'package:evizy/view_model/hospital_view_model.dart';
 import 'package:evizy/view_model/kabupaten_kota_view_model.dart';
 import 'package:evizy/view_model/kecamatan_view_model.dart';
@@ -31,20 +29,20 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
   final _formKey = GlobalKey<FormState>();
 
   //Controller buat Form
-  TextEditingController _kategoriController = TextEditingController();
+  final TextEditingController _kategoriController = TextEditingController();
 
-  TextEditingController _jalanController = TextEditingController();
-  TextEditingController _jalanKtpController = TextEditingController();
+  final TextEditingController _jalanController = TextEditingController();
+  final TextEditingController _jalanKtpController = TextEditingController();
 
-  TextEditingController _namaController = TextEditingController();
-  TextEditingController _nikController = TextEditingController();
-  TextEditingController _tanggalLahirController = TextEditingController();
-  TextEditingController _nomorController = TextEditingController();
+  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _nikController = TextEditingController();
+  final TextEditingController _tanggalLahirController = TextEditingController();
+  final TextEditingController _nomorController = TextEditingController();
 
-  TextEditingController _rtController = TextEditingController();
-  TextEditingController _rwController = TextEditingController();
-  TextEditingController _rtKtpController = TextEditingController();
-  TextEditingController _rwKtpController = TextEditingController();
+  final TextEditingController _rtController = TextEditingController();
+  final TextEditingController _rwController = TextEditingController();
+  final TextEditingController _rtKtpController = TextEditingController();
+  final TextEditingController _rwKtpController = TextEditingController();
 
   //Buat Form Controller
   @override
@@ -559,7 +557,6 @@ class _LangkahBookingVaksinState extends State<LangkahBookingVaksin> {
                                   break;
                                 }
                               }
-                              print(cityId);
                               hospitalProvider
                                   .getHospital(cityId!)
                                   .then((value) {

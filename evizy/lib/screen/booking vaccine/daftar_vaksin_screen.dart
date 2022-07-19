@@ -150,12 +150,12 @@ class _DaftarVaksinScreenState extends State<DaftarVaksinScreen> {
                       const SizedBox(
                         height: 100,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Container(
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: SizedBox(
                           width: 313,
                           height: 34,
-                          child: const Text(
+                          child: Text(
                             'Segera daftarkan diri Anda dengan mengklik tombol berikut :',
                             style: TextStyle(
                               color: Colors.black,

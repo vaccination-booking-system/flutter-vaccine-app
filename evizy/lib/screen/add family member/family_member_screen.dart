@@ -45,9 +45,9 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
             const SizedBox(
               height: 53,
             ),
-            Container(
+            const SizedBox(
               width: 202,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Daftarkan Keluarga Anda',
                   style: TextStyle(
@@ -61,9 +61,9 @@ class _FamilyMemberScreenState extends State<FamilyMemberScreen> {
             const SizedBox(
               height: 19,
             ),
-            Container(
+            const SizedBox(
               width: 286,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Daftarkan Keluarga Anda , Cukup Dengan Menambahkan Data Diri Mereka.',
                   style: TextStyle(

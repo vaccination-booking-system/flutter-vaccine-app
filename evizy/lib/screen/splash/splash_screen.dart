@@ -1,4 +1,3 @@
-import 'package:evizy/model/vaccine%20session/vaccination_session_by_id_mode.dart';
 import 'package:evizy/screen/home/home_screen.dart';
 import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
@@ -35,10 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if (data.isEmpty) {
       getPrefs();
     }
-    print(data);
     final datas = jwtDecode.parseJwt(data);
     userId = datas.values.elementAt(1);
-    print(userId);
   }
 
   String? _token;

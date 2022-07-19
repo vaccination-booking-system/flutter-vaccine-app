@@ -74,22 +74,22 @@ class _TentangKamiScreenState extends State<TentangKamiScreen> {
           });
         },
         children: _data
-            .map<ExpansionPanel>((ExpansionPanelModel ExpansionPanelModel) {
+            .map<ExpansionPanel>((ExpansionPanelModel expansionPanelModel) {
           return ExpansionPanel(
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
-                title: Text(ExpansionPanelModel.headerValue),
+                title: Text(expansionPanelModel.headerValue),
               );
             },
             body: Padding(
               padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
               child: Text(
-                ExpansionPanelModel.expandedValue,
+                expansionPanelModel.expandedValue,
                 style:
                     const TextStyle(color: Color.fromARGB(255, 190, 190, 190)),
               ),
             ),
-            isExpanded: ExpansionPanelModel.isExpanded,
+            isExpanded: expansionPanelModel.isExpanded,
           );
         }).toList(),
       ),

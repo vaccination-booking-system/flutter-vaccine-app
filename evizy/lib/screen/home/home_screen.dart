@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:evizy/model/api/services_api.dart';
 import 'package:evizy/screen/add%20family%20member/family_member_screen.dart';
 import 'package:evizy/screen/booking%20vaccine/booking_vaccine_screen.dart';
 import 'package:evizy/screen/profile/dashboard_screen.dart';
@@ -290,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 32,
                                             width: 72,
                                             child: Text(
@@ -329,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 32,
                                             width: 72,
                                             child: Text(
@@ -368,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 32,
                                             width: 72,
                                             child: Text(

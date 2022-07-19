@@ -64,9 +64,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(
                       height: 19,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 322,
-                      child: const Text(
+                      child: Text(
                         'Lakukan Pendaftaran Vaksin Secara Online, Dan Sesuaikan Jadwal Yang Anda Inginkan.',
                         style: TextStyle(
                           fontSize: 14,
@@ -98,9 +98,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(
                       height: 60,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 217,
-                      child: const Text(
+                      child: Text(
                         'Daftarkan Keluarga Anda',
                         style: TextStyle(
                           fontSize: 28,
@@ -113,9 +113,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(
                       height: 19,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 239,
-                      child: const Text(
+                      child: Text(
                         'Anda Juga Dapat Mendaftarkan keluarga Anda',
                         style: TextStyle(
                           fontSize: 14,
@@ -147,9 +147,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(
                       height: 60,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 189,
-                      child: const Text(
+                      child: Text(
                         'Unduh Tiket Vaksin Anda',
                         style: TextStyle(
                           fontSize: 28,
@@ -162,9 +162,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(
                       height: 19,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 154,
-                      child: const Text(
+                      child: Text(
                         'Tiket Bisa Diakses Kapanpun Anda Mau',
                         style: TextStyle(
                           fontSize: 14,
@@ -181,7 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
-      bottomSheet: Container(
+      bottomSheet: SizedBox(
         height: 142,
         child: Center(
           child: Column(

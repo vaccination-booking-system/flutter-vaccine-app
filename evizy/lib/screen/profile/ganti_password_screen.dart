@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class GantiPasswordScreen extends StatefulWidget {
   const GantiPasswordScreen({Key? key}) : super(key: key);
@@ -68,6 +66,7 @@ class _GantiPasswordScreenState extends State<GantiPasswordScreen> {
             Stack(
               children: [
                 Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       SizedBox(
@@ -84,7 +83,7 @@ class _GantiPasswordScreenState extends State<GantiPasswordScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 56,
                             ),
                             const Padding(
@@ -119,10 +118,11 @@ class _GantiPasswordScreenState extends State<GantiPasswordScreen> {
                                   if (value!.isEmpty) {
                                     return ("Masukkan password lama anda");
                                   }
+                                  return null;
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             const Padding(
@@ -157,10 +157,11 @@ class _GantiPasswordScreenState extends State<GantiPasswordScreen> {
                                   if (value!.isEmpty) {
                                     return ("Masukkan password baru anda");
                                   }
+                                  return null;
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             const Padding(
@@ -195,6 +196,7 @@ class _GantiPasswordScreenState extends State<GantiPasswordScreen> {
                                   if (value!.isEmpty) {
                                     return ("Masukkan password baru anda");
                                   }
+                                  return null;
                                 },
                               ),
                             ),

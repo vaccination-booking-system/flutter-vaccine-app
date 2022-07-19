@@ -1,6 +1,5 @@
 import 'package:evizy/screen/home/home_screen.dart';
 import 'package:evizy/screen/tiket%20vaksin/detail_tiket_vaksin.dart';
-import 'package:evizy/view_model/hospital_view_model.dart';
 import 'package:evizy/view_model/tiket_vaksin_view_model.dart';
 import 'package:evizy/view_model/user_view_model.dart';
 import 'package:evizy/view_model/vaccination_session_by_id_view_model.dart';

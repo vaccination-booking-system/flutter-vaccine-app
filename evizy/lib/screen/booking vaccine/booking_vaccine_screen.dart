@@ -40,9 +40,9 @@ class BookingVaccine extends StatelessWidget {
             const SizedBox(
               height: 53,
             ),
-            Container(
+            const SizedBox(
               width: 285,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Daftar Vaksin Online',
                   style: TextStyle(
@@ -56,9 +56,9 @@ class BookingVaccine extends StatelessWidget {
             const SizedBox(
               height: 19,
             ),
-            Container(
+            const SizedBox(
               width: 290,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Lakukan Pendaftaran Vaksin Secara Online, Lalu Sesuaikan Jenis Vaksin Dan Jadwal Yang Anda Inginkan.',
                   style: TextStyle(

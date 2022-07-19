@@ -16,11 +16,7 @@ import 'package:evizy/model/wilayah%20indonesia/kabupaten_kota_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kecamatan_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kelurahan.dart';
 import 'package:evizy/model/wilayah%20indonesia/provinsi_model.dart';
-import 'package:evizy/screen/splash/splash_screen.dart';
-import 'package:evizy/screen/streams/login_screen.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,39 +27,20 @@ class ServiceApi {
 
   ServiceApi() {
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      // Do something before request is sent
-      return handler.next(options); //continue
-      // If you want to resolve the request with some custom data，
-      // you can resolve a `Response` object eg: `handler.resolve(response)`.
-      // If you want to reject the request with a error message,
-      // you can reject a `DioError` object eg: `handler.reject(dioError)`
+      return handler.next(options);
     }, onResponse: (response, handler) {
-      // Do something with response data
-      return handler.next(response); // continue
-      // If you want to reject the request with a error message,
-      // you can reject a `DioError` object eg: `handler.reject(dioError)`
+      return handler.next(response);
     }, onError: (DioError e, handler) async {
-      // Do something with response error
       if (e.response!.statusCode == 401) {
         final pref = await SharedPreferences.getInstance();
         pref.remove(PreferencesKeys.token);
-        // Navigator.pushAndRemoveUntil(
-        //     (context),
-        //     MaterialPageRoute(builder: (context) => const LoginScreen()),
-        //     (route) => false);
         Fluttertoast.showToast(msg: 'Token Expired');
       } else if (e.response!.statusCode == 403) {
         final pref = await SharedPreferences.getInstance();
         pref.remove(PreferencesKeys.token);
-        // Navigator.pushAndRemoveUntil(
-        //     (context),
-        //     MaterialPageRoute(builder: (context) => const LoginScreen()),
-        //     (route) => false);
         Fluttertoast.showToast(msg: 'Token Expired');
       }
-      return handler.next(e); //continue
-      // If you want to resolve the request with some custom data，
-      // you can resolve a `Response` object eg: `handler.resolve(response)`.
+      return handler.next(e);
     }));
   }
 
@@ -386,7 +363,7 @@ class ServiceApi {
     }
   }
 
-  Future<bookingVaccineModel> bookingVaccine(
+  Future<BookingVaccineModel> bookingVaccine(
     int id,
     String kategori,
     bool statusHamil,
@@ -424,10 +401,10 @@ class ServiceApi {
       });
 
       final data = response.data;
-      return bookingVaccineModel.fromJson(data);
+      return BookingVaccineModel.fromJson(data);
     } on DioError catch (e) {
       if (e.response!.statusCode! >= 400 && e.response!.statusCode! < 500) {
-        return bookingVaccineModel.fromJson(e.response!.data);
+        return BookingVaccineModel.fromJson(e.response!.data);
       } else {
         rethrow;
       }

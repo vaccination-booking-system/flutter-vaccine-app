@@ -8,11 +8,11 @@ class AddFamilyMemberViewModel with ChangeNotifier {
   CreateFamilyMember get familyMember => _familyMember;
   final ServiceApi serviceApi = ServiceApi();
 
-  Future createFamilyMember(String name, String nik, String phone_number,
-      String date_of_birth, String gender, String relationship) async {
+  Future createFamilyMember(String name, String nik, String phoneNumber,
+      String dateOfBirth, String gender, String relationship) async {
     try {
       final data = await serviceApi.createFamilyMember(
-          name, nik, phone_number, date_of_birth, gender, relationship);
+          name, nik, phoneNumber, dateOfBirth, gender, relationship);
       if (data.message == "SUCCESS") {
         _familyMember = data;
         notifyListeners();

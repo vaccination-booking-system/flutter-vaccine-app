@@ -30,10 +30,8 @@ class _SecondSplashScreenState extends State<SecondSplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final JwtDecode jwtDecode = JwtDecode();
     final String data = prefs.get(PreferencesKeys.token).toString();
-    print(data);
     final datas = jwtDecode.parseJwt(data);
     userId = datas.values.elementAt(1);
-    print(userId);
   }
 
   @override

@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BookingVaccineViewModel with ChangeNotifier {
-  bookingVaccineModel _bookingVaccine = bookingVaccineModel();
-  bookingVaccineModel get bookingVaccine => _bookingVaccine;
+  BookingVaccineModel _bookingVaccine = BookingVaccineModel();
+  BookingVaccineModel get bookingVaccine => _bookingVaccine;
   final ServiceApi serviceApi = ServiceApi();
 
   Future createBookingVaccine(

@@ -1,11 +1,11 @@
-class bookingVaccineModel {
+class BookingVaccineModel {
   String? timestamp;
   String? message;
   Data? data;
 
-  bookingVaccineModel({this.timestamp, this.message, this.data});
+  BookingVaccineModel({this.timestamp, this.message, this.data});
 
-  bookingVaccineModel.fromJson(Map<String, dynamic> json) {
+  BookingVaccineModel.fromJson(Map<String, dynamic> json) {
     timestamp = json['timestamp'];
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;

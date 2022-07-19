@@ -45,9 +45,9 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
             const SizedBox(
               height: 53,
             ),
-            Container(
+            const SizedBox(
               width: 202,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Lihat Tiket Vaksin Anda',
                   style: TextStyle(
@@ -61,9 +61,9 @@ class _TiketVaksinScreenState extends State<TiketVaksinScreen> {
             const SizedBox(
               height: 19,
             ),
-            Container(
+            const SizedBox(
               width: 331,
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Lihat Tiket Vaksin Anda DImapun Dan Kapanpun.',
                   style: TextStyle(
