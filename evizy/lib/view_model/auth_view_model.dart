@@ -19,5 +19,17 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future setNik(String nik) async {
+    _prefs = await SharedPreferences.getInstance();
+    await _prefs!.setString(PreferencesKeys.nik, nik);
+    notifyListeners();
+  }
+
+  Future setPass(String pass) async {
+    _prefs = await SharedPreferences.getInstance();
+    await _prefs!.setString(PreferencesKeys.password, pass);
+    notifyListeners();
+  }
+
   checkToken() async {}
 }

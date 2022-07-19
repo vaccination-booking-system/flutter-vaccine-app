@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:evizy/screen/home/home_screen.dart';
+import 'package:evizy/screen/splash/splash_screen2.dart';
 import 'package:evizy/screen/streams/register_screen.dart';
 import 'package:evizy/view_model/auth_view_model.dart';
 import 'package:evizy/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,9 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   //Untuk show dan hidden password
   bool _passwordVisible = false;
 
-  //Untuk chackbox bisa di checklist atau engaknya
-  bool isChecked = false;
-
   //Check validasi untuk password
   final RegExp _passValid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])");
   bool validatePassword(String pass) {
@@ -37,19 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return false;
     }
-  }
-
-  //Dapetin warna buat checkbox
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return Colors.blue;
-    }
-    return Colors.black;
   }
 
   //Buat Form Controller
@@ -65,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginProvider = Provider.of<LoginViewModel>(context);
     final authProvider = Provider.of<AuthViewModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 10, 108, 157),
+      backgroundColor: const Color.fromARGB(255, 10, 108, 157),
       body: Form(
         // autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey, //Key untuk Form
@@ -99,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       controller: _nikController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'NIK',
                       ),
                       validator: (value) {
@@ -109,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value.length != 16) {
                           return ("Enter Valid NIK( 16 Character)");
                         }
+                        return null;
                       },
                     ),
                   ),
@@ -143,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value!.isEmpty) {
                           return ("Masukkan password anda");
                         }
+                        return null;
                         // if (value.length < 8) {
                         //   return ("Enter Valid password(min. 8 Character)");
                         // }
@@ -190,23 +174,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          final bool isAvailable = await loginProvider.getLogin(
+                          bool isAvailable = await loginProvider.getLogin(
                               _nikController.text, _passwordController.text);
                           if (isAvailable) {
-                            if (mounted && isChecked == true) {
+                            if (mounted) {
                               authProvider.setToken(
                                   loginProvider.login.data!.accessToken!);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const HomeScreen()));
-                            } else if (mounted) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomeScreen()));
+                                          const SecondSplashScreen()));
                             }
                           }
                         }
@@ -220,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(308, 40)),
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 10, 108, 157))),
+                              const Color.fromARGB(255, 10, 108, 157))),
                       child: const Text('Masuk'),
                     ),
                   ),
@@ -240,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushAndRemoveUntil(
                               (context),
                               MaterialPageRoute(
-                                  builder: (context) => RegisterScreen()),
+                                  builder: (context) => const RegisterScreen()),
                               (route) => false);
                         },
                         child: const Text(

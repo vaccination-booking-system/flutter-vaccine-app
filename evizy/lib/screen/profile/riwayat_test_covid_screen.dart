@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class RiwayatTestCovidScreen extends StatefulWidget {
   const RiwayatTestCovidScreen({Key? key}) : super(key: key);
@@ -15,14 +13,18 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 245, 251),
+      backgroundColor: const Color.fromARGB(255, 237, 245, 251),
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
-          'Edit Profile',
-          style: TextStyle(color: Colors.black),
+          'Riwayat Test Covid-19',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,19 +33,19 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 30,
+              height: MediaQuery.of(context).size.height / 24,
             ),
             Stack(
               children: [
                 Column(
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: MediaQuery.of(context).size.height / 26,
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height / 1.26,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
@@ -55,7 +57,7 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
                   child: Container(
                     height: MediaQuery.of(context).size.height / 13,
                     width: MediaQuery.of(context).size.width / 2,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       color: Color.fromARGB(255, 10, 108, 157),
                     ),
@@ -66,7 +68,7 @@ class _RiwayatTestCovidScreenState extends State<RiwayatTestCovidScreen> {
                           Icons.keyboard_arrow_down_rounded,
                           color: Colors.white,
                         ),
-                        dropdownColor: Color.fromARGB(255, 10, 108, 157),
+                        dropdownColor: const Color.fromARGB(255, 10, 108, 157),
                         elevation: 16,
                         style: const TextStyle(
                             color: Colors.white,

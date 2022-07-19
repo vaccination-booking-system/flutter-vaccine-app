@@ -12,7 +12,7 @@ class RegisterModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['timestamp'] = timestamp;
     data['message'] = message;
     if (this.data != null) {
@@ -32,7 +32,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['accessToken'] = accessToken;
     return data;
   }
