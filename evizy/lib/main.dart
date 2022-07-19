@@ -92,6 +92,7 @@ Future main() async {
       ),
     ],
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       navigatorKey: MainNavigasiKey.mainNavigatorKey,
       title: 'Evizy',
       home: onBoarding ? const SplashScreen() : const OnboardingScreen(),

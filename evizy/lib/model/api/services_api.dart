@@ -16,7 +16,10 @@ import 'package:evizy/model/wilayah%20indonesia/kabupaten_kota_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kecamatan_model.dart';
 import 'package:evizy/model/wilayah%20indonesia/kelurahan.dart';
 import 'package:evizy/model/wilayah%20indonesia/provinsi_model.dart';
+import 'package:evizy/screen/streams/login_screen.dart';
+import 'package:evizy/utils/constant/main_navigator_key.dart';
 import 'package:evizy/utils/constant/preferences_key.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,10 +37,18 @@ class ServiceApi {
       if (e.response!.statusCode == 401) {
         final pref = await SharedPreferences.getInstance();
         pref.remove(PreferencesKeys.token);
+        Navigator.pushAndRemoveUntil(
+            (MainNavigasiKey.mainNavigatorKey.currentContext!),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false);
         Fluttertoast.showToast(msg: 'Token Expired');
       } else if (e.response!.statusCode == 403) {
         final pref = await SharedPreferences.getInstance();
         pref.remove(PreferencesKeys.token);
+        Navigator.pushAndRemoveUntil(
+            (MainNavigasiKey.mainNavigatorKey.currentContext!),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false);
         Fluttertoast.showToast(msg: 'Token Expired');
       }
       return handler.next(e);
